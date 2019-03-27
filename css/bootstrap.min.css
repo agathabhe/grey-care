@@ -58,33 +58,76 @@ body{
 }
 #linkcolor{
 	color: white;
+	hover: black;
 }
 
 fieldset{
     border-color:  #44a5ae;
 }
 
-/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
+.row.content {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:11;
+	background-color:#02474e;
+	width:100%;
+	height:100%;
+	opacity: 100%;
+	filter: alpha(opacity=100);
+}
+
+.sidenav {
+    background-color: #44a5ae;
+    height: 100%;
+}
+
+#navbarcomponents{
+	background-color: #add9d1;
+}
+
+#mainheader {
+    background-color:#02474e;
+    color: white;
+    padding: auto;
+    border-bottom: 3px solid #44a5ae;
+}
     
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+	    height: auto;
+	    padding: 15px;
+	}
+
+	.row.content {
+		height: auto;
+	} 
+}
+
+.nav-pills > li.active > a{
+    color: #02474e;
+    background-color: #02474e;
+}
+
+.nav-pills > li.active > a:hover{
+    color: #02474e;
+    background-color: #02474e;
+}
+
+.nav-pills > li > a:hover{
+    color: #02474e;
+    background-color: #02474e;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+
