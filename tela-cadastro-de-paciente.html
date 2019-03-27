@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,53 +13,66 @@
     <title>Cadastro de Paciente</title>
 </head>
 <body>
-    <fieldset>
-    Cadastro de paciente <br><br>
+    <p style="padding: 1px"></p>
+    <div class="container" id="minhadiv">
+        <header>
+            <br>
+            <div class="row" style="height: 2px; margin-top: -9px">
+                <div class="col-sm-4 col-md-9">
+                    <p id="cabecalho">Cadastro de Paciente</p>
+                </div>
+                <div class="col-sm-1 col-md-3 text-right">
+                    <a href="tela-login.html"><img src="Images/LogoGC.png"
+                            style="width: 25%; margin-top: -17px"></img></a>
+                </div>
+            </div>
+        </header> <br><br>
+        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px" id="ver">
+            <p style="font-size: 25px">Dados Pessoais</p>
+            
+            Nome completo*: <input type="text" name="nome" v-model="nome">
+            CPF*: <input type="text" name="nome" v-model="cpf"><br><br>
+            Data de nascimento: <input type="date" name="nascimento" v-model="nascimento">
+            Telefone*: <input type="number" name="telefone" v-model="telefone">
+            Estado civil: <select>
+                <option value="solteiro">Solteiro(a)</option>
+                <option value="casado">Casado(a)</option>
+            </select><br><br>
+            Endereço*: <input type="text" name="endereco" v-model="end">
+            CEP*: <input type="number" name="cep" v-model="cep">
+            Sexo*: <select>
+                <option value="male">Masculino</option>
+                <option value="female">Feminino</option>
+            </select>
+            Email*: <input type="email" name="email" v-model="email">
+            <br><br>
+            <p style="font-size: 25px">Dados Médicos</p>
+            Alergias*:<br>
+            <textarea name="alergias" v-model="alergias" cols="30" rows="3"></textarea><br>
+            Tipo Sanguíneo: <select>
+                <option value="1">A+</option>
+                <option value="2">A-</option>
+                <option value="2">B+</option>
+                <option value="2">B-</option>
+                <option value="2">AB+</option>
+                <option value="3">AB-</option>
+                <option value="4">O+</option>
+                <option value="5">O-</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            Doador de sangue? Sim&nbsp;<input type="radio" name="resposta" id="sim"> Não&nbsp; <input type="radio" name="resposta"
+                id="no">
+            <h6>(*) campos obrigatórios</h6>
 
-    <fieldset>
-        <form action="">
-           Dados pessoais
-           <br>
-           Nome completo*: <input type="text" name="nome" id="nome">
-           CPF*: <input type="text" name="nome" id="cpf"><br><br>
-           Data de nascimento: <input type="date" name="nascimento" id="nascimento">
-           Telefone*: <input type="number" name="telefone" id="telefone">
-           Estado civil: <select>
-                            <option value="solteiro">Solteiro(a)</option>
-                            <option value="casado">Casado(a)</option>
-                         </select><br><br>
-           Endereço*: <input type="text" name="endereco" id="end">
-           CEP*: <input type="number" name="cep" id="cep">
-           Sexo*: <select>
-                    <option value="male">Masculino</option>
-                    <option value="female">Feminino</option>
-                  </select>
-           Email*: <input type="email" name="email" id="email">
-           <br><br>
+            <div class="btn-group-horizontal text-center">
+                <a href="tela-login.html" id="buttonLink"><button class="btn btn-secondary" type="button"
+                        id="cancel">Cancelar</button></a>
+                <button class="btn btn-secondary" type="button" id="in">Salvar</button>
+                <br><br>
+            </div>
+        </div>
+        <br>
+    </div>
 
-           Dados médicos <br>
-           Alergias*:<br>         
-           <textarea name="alergias" id="alergias" cols="30" rows="10"></textarea><br>
-           Tipo Sanguíneo: <select>
-                                <option value="1">A+</option>
-                                <option value="2">A-</option>
-                                <option value="2">B+</option>
-                                <option value="2">B-</option>
-                                <option value="2">AB+</option>
-                                <option value="3">AB-</option>
-                                <option value="4">O+</option>
-                                <option value="5">O-</option>
-                            </select><br>
-           Doador de sangue? Sim<input type="radio" name="resposta" id="sim"> Não <input type="radio" name="resposta" id="no">
-        
-           <h6>(*) campos obrigatórios</h6>
-           <br>
-           <input type="submit" value="Cancelar" id="cancelar">
-           <input type="submit" value="Salvar" id="salvar">
-
-
-        </form>
-    </fieldset>
-    </fieldset>
 </body>
+
 </html>

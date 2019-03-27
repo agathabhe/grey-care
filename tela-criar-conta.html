@@ -13,7 +13,7 @@
 </head>
 <body>
     <p style="padding: 1px"></p>
-    <div class="container" style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: -3px;">
+    <div class="container" id="minhadiv">
         <header>
             <br>
             <div class="row" style="height: 2px; margin-top: -9px">
@@ -27,95 +27,94 @@
         </header> <br><br>
         <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px"  id="ver">
         <p style="font-size: 25px">Dados cadastrais</p>
-            <div class="radio">
-                Tipo de conta*: &nbsp
-                <label><input type="radio" name="option" v-model="visualizar" value="medico">Médico(a)</label> &nbsp&nbsp&nbsp
-                <label><input type="radio" name="option"  v-model="visualizar" value="secretario">Secretário(a)</label>
-                <br><br>
+                <div class="radio">
+                    Tipo de conta*: &nbsp
+                    <label><input type="radio" name="option" v-model="visualizar" value="medico">Médico(a)</label> &nbsp&nbsp&nbsp
+                    <label><input type="radio" name="option"  v-model="visualizar" value="secretario">Secretário(a)</label>
+                    <br><br>
 
-                <div v-show="visualizar === 'medico'">
-                    Nome de usuário*: <input type="text" name="user" id="user"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    CRM*: <input type="text" name="crm" id="crm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    UF*: <select id="estado" name="estado">
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                            <option value="ES">Estrangeiro</option>
-                        </select>
-                    <br><br>
-                    Senha*: <input type="password" name="senha" id="senha"> &nbsp;&nbsp;&nbsp;&nbsp;
-                    Confirmar senha*: <input type="password" name="confsenha" id="confsenha">&nbsp;&nbsp;&nbsp;&nbsp;
-                    Email*: <input type="email" name="email" id="email">
+                    <div v-show="visualizar === 'medico'">
+                        Nome de usuário*: <input type="text" name="user" v-model="user"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        CRM*: <input type="text" name="crm" v-model="crm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        UF*: <select id="estado" name="estado">
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                                <option value="ES">Estrangeiro</option>
+                            </select>
+                        <br><br>
+                        Senha*: <input type="password" name="senha" v-model="senha"> &nbsp;&nbsp;&nbsp;&nbsp;
+                        Confirmar senha*: <input type="password" name="confsenha" v-model="confsenha">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Email*: <input type="email" name="email" v-model="email">
 
-                    <br><br>
-                    <p style="font-size: 25px">Dados pessoais</p>
-                    Nome completo*: <input type="text" name="nome" id="nome">&nbsp;&nbsp;&nbsp;&nbsp;
-                    Telefone*: <input type="text" name="telefone" id="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-                    Data de nascimento: <input type="date" name="nascimento" id="nascimento">&nbsp;&nbsp;&nbsp;&nbsp;
-                    Especialidade*: <input type="text" name="especialidade" id="esp">
-                    <br>
-                </div>
-                <div v-show="visualizar === 'secretario'">
-                    Nome de usuário*: <input type="text" name="user" id="user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    CPF*: <input type="text" name="CPF" id="cpf">
-                    <br><br>
-                    Senha*: <input type="password" name="senha" id="senha">&nbsp;&nbsp;&nbsp;&nbsp;
-                    Confirmar senha*: <input type="password" name="confsenha" id="confsenha">&nbsp;&nbsp;&nbsp;&nbsp;
-                    Email*: <input type="email" name="email" id="email">
+                        <br><br>
+                        <p style="font-size: 25px">Dados pessoais</p>
+                        Nome completo*: <input type="text" name="nome" v-model="nome">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Telefone*: <input type="text" name="telefone" v-model="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+                        Data de nascimento: <input type="date" name="nascimento" v-model="nascimento">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Especialidade*: <input type="text" name="especialidade" v-model="esp">
+                        <br>
+                    </div>
+                    <div v-show="visualizar === 'secretario'">
+                        Nome de usuário*: <input type="text" name="user" v-model="user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        CPF*: <input type="text" name="CPF" v-model="cpf">
+                        <br><br>
+                        Senha*: <input type="password" name="senha" id="senha">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Confirmar senha*: <input type="password" name="confsenha" id="confsenha">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Email*: <input type="email" name="email" id="email">
 
-                    <br><br>
-                    <p style="font-size: 25px">Dados pessoais</p>
-                    Nome completo*: <input type="text" name="nome" id="nome">&nbsp;&nbsp;&nbsp;&nbsp;
-                    Telefone*: <input type="text" name="telefone" id="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-                    Data de nascimento: <input type="date" name="nascimento" id="nascimento">
-                    
-                    <br>
-                </div>
+                        <br><br>
+                        <p style="font-size: 25px">Dados pessoais</p>
+                        Nome completo*: <input type="text" name="nome" id="nome">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Telefone*: <input type="text" name="telefone" id="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+                        Data de nascimento: <input type="date" name="nascimento" id="nascimento">
+                        
+                        <br>
+                    </div>
             </div>
-            
-           <h6>(*) campos obrigatórios</h6>
-            <div class="btn-group-horizontal text-center" id="avancar">
-                <br>
+            <br>
+            <h6>(*) campos obrigatórios</h6>
+            <br>
+            <div class="btn-group-horizontal text-center">
                 <a href="tela-login.html" id="buttonLink"><button class="btn btn-secondary" type="button" id="cancel">Cancelar</button></a>
-                <button class="btn btn-secondary" type="button" v-model=counter value=0 id="in">Salvar</button>
+                <button class="btn btn-secondary" type="button" id="in">Salvar</button>
             </div>
-            <p style="padding: 1px"></p>
+            <br>
+            </div>
+            <br>
         </div>
-        <p style="padding: 1px"></p>
-    </div>
-    
-    <script>
-        var ver = new Vue({
-            el: "#ver",
-            data: {
-                visualizar:"",
-            }
-        });
-    </script>    
-
+        <script>
+            var ver = new Vue({
+                el: "#ver",
+                data: {
+                    visualizar:"",
+                }
+                
+            });
+        </script>  
 </body>
 </html>
