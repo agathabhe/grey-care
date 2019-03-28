@@ -1,40 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/vue.js"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <title>GreyCare</title>
-    </head>
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
 
-    <body>
-        <div class="container-fluid">
-            <div class="row no-gutter content">
-                <div class="col-sm-3  sidenav" style="padding-right: 15px">
-                    <h2 style="color: white; margin-left: 10px"> Menu</h3>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>GreyCare</title>
+</head>
+
+<body>
+    <div class="container-fluid" id="paginaInicial">
+        <div class="row no-gutter content">
+            <div class="col-sm-3  sidenav" style="padding-right: 15px">
+                <h2 style="color: white; margin-left: 10px"> Menu</h3>
                     <hr>
                     <ul class="nav nav-pills nav-stacked" style="margin-left: 10px; margin-bottom: 330px">
-                        <li class="active"><a href="tela-principal.html" id="linkcolor">Página Inicial</a></li>
-                        <li><a href="#section2" id="linkcolor">Pacientes</a></li>
-                        <li><a class="disabled" id="linkcolor">Consultas</a></li>
+                        <li class="active"><a href="#" id="linkcolor" v-on:click="escondePacientes()">Página Inicial</a>
+                        </li>
+                        <li><a href="#" id="linkcolor" v-on:click="mostrarPacientes()">Pacientes</a></li>
+                        <!-- <li><a class="disabled" id="linkcolor">Consultas</a></li> -->
                     </ul>
 
-                    <a class="disabled" id="linkcolor"><h4 style="margin-left: 40px">alterar meus dados</h4></a>
+                    <a class="disabled" id="linkcolor">
+                        <h4 style="margin-left: 40px">alterar meus dados</h4>
+                    </a>
+            </div>
+            <div>
+                <header id="mainheader">
+                    <p></p>
+                    <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp; Seja bem vindo(a),
+                        Agatha!</p>
+                </header>
+                <br>
+            </div>
+            <div class="row" v-show="mostraTabela">
+                <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp;
+                    Pacientes</p>
+                <div class="col-md-8">
+                    <table class="table" style="margin-left: 20px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">CPF</th>
+                                <th scope="col">Data de Nascimento</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Endereço</th>
+                                <th scope="col">CEP</th>
+                                <th scope="col">Sexo</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Estado Civil</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="paciente in pacientes">
+                                <td scope="row">{{paciente.nome}}</td>
+                                <td scope="row">{{paciente.cpf}}</td>
+                                <td scope="row">{{paciente.dataNascimento}}</td>
+                                <td scope="row">{{paciente.telefone}}</td>
+                                <td scope="row">{{paciente.endereco}}</td>
+                                <td scope="row">{{paciente.cep}}</td>
+                                <td scope="row">{{paciente.sexo}}</td>
+                                <td scope="row">{{paciente.email}}</td>
+                                <td scope="row">{{paciente.estadoCivil}}</td>
+                                <td scope="row">
+                                    <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                                <td scope="row"> <button type="button" class="btn btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button></td>
+                                <td scope="row"> <button type="button" class="btn btn-primary"
+                                        v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div>
-                    <header id="mainheader">
-                        <p></p>
-                        <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp; Seja bem vindo(a), Agatha!</p>
-                    </header>
+                <div class="col-md-8" style="margin-left: 20px;" v-show="mostraPaciente">
+                    <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp;
+                        Informações de Paciente</p>
+                        <p>Nome: {{paciente.nome}}</p>
+                        <p>CPF: {{paciente.cpf}}</p>
+                        <p>Data de Nascimento: {{paciente.dataNascimento}}</p>
+                        <p>Telefone: {{paciente.telefone}}</p>
+                        <p>Endereço: {{paciente.endereco}}</p>
+                        <p>CEP: {{paciente.cep}}</p>
+                        <p>Sexo: {{paciente.sexo}}</p>
+                        <p>E-mail: {{paciente.email}}</p>
+                        <p>Estado Civil: {{paciente.estadoCivil}}</p>
                 </div>
+
             </div>
         </div>
-        
-    </body>
+    </div>
+
+    <script>
+        var paginaInicial = new Vue({
+            el: "#paginaInicial",
+            data: {
+                mostraTabela: false,
+                mostraPaciente: false,
+                paciente: {
+                    nome: '',
+                    cpf: '',
+                    dataNascimento: '',
+                    telefone: '',
+                    endereco: '',
+                    cep: '',
+                    sexo: '',
+                    email: '',
+                    estadoCivil: ''
+                },
+                pacientes: [
+                    {
+                        nome: 'João de Barro',
+                        cpf: '02105403298',
+                        dataNascimento: '02/04/1990',
+                        telefone: '88996874527',
+                        endereco: 'Rua A, 170, São Vicente',
+                        cep: '63700-000',
+                        sexo: 'masculino',
+                        email: 'joaodebarro@gmail.com',
+                        estadoCivil: 'Solteiro'
+                    },
+                    {
+                        nome: 'Maria do Bairro',
+                        cpf: '54798745687',
+                        dataNascimento: '05/09/1993',
+                        telefone: '88995474147',
+                        endereco: 'Rua B, 20, Venâncios',
+                        cep: '63700-000',
+                        sexo: 'feminino',
+                        email: 'mariadebarro@gmail.com',
+                        estadoCivil: 'Solteiro'
+                    },
+                ]
+            },
+            methods: {
+                mostrarPacientes: function () {
+                    this.mostraTabela = true;
+                },
+                escondePacientes: function () {
+                    this.mostraTabela = false;
+                },
+                mostrarPaciente: function (paciente) {
+                    this.mostraPaciente = true;
+                    this.paciente = paciente;
+                }
+            }
+        });
+    </script>
+
+</body>
+
 </html>
