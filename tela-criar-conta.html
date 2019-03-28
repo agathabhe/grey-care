@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,110 +12,201 @@
     <script src="js/vue.js"></script>
     <title>Criar Conta</title>
 </head>
+
 <body>
     <p style="padding: 1px"></p>
     <div class="container" id="minhadiv">
-        <header>
-            <br>
-            <div class="row" style="height: 2px; margin-top: -9px">
-                <div class="col-sm-4 col-md-9">
-                    <p id="cabecalho">Criar uma nova conta</p>
-                </div>
-                <div class="col-sm-1 col-md-3 text-right">
-                    <a href="tela-login.html"><img src="Images/LogoGC.png" style="width: 25%; margin-top: -17px"></img></a>
-                </div>
+        <!-- <header> -->
+        <br>
+        <div class="row" style="height: 2px; margin-top: -9px">
+            <div class="col-sm-1 col-md-1">
+                <a href="tela-login.html"><img src="Images/LogoGC.png" style="width: 75%; margin-top: -20px"></img></a>
             </div>
-        </header> <br><br>
-        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px"  id="ver">
-        <p style="font-size: 25px">Dados cadastrais</p>
+            <div class="col-sm-2 col-md-2">
+                <p id="cabecalho">Criar uma nova conta</p>
+            </div>
+        </div>
+        <!-- </header> -->
+        <br><br><br>
+        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px" id="ver">
+            <p style="font-size: 25px">Dados cadastrais</p>
+            <div class="alert alert-danger " role="alert" v-if="errors.length">
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+            </div>
+            <form @submit="checkForm" action="tela-login.html"
+            method="post">
                 <div class="radio">
                     Tipo de conta*: &nbsp
-                    <label><input type="radio" name="option" v-model="visualizar" value="medico">Médico(a)</label> &nbsp&nbsp&nbsp
-                    <label><input type="radio" name="option"  v-model="visualizar" value="secretario">Secretário(a)</label>
+                    <label><input type="radio" name="option" v-model="visualizar" value="medico">Médico(a)</label>
+                    &nbsp&nbsp&nbsp
+                    <label><input type="radio" name="option" v-model="visualizar"
+                            value="secretario">Secretário(a)</label>
                     <br><br>
 
-                    <div v-show="visualizar === 'medico'">
-                        Nome de usuário*: <input type="text" name="user" v-model="user"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        CRM*: <input type="text" name="crm" v-model="crm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        UF*: <select id="estado" name="estado">
-                                <option value="AC">Acre</option>
-                                <option value="AL">Alagoas</option>
-                                <option value="AP">Amapá</option>
-                                <option value="AM">Amazonas</option>
-                                <option value="BA">Bahia</option>
-                                <option value="CE">Ceará</option>
-                                <option value="DF">Distrito Federal</option>
-                                <option value="ES">Espírito Santo</option>
-                                <option value="GO">Goiás</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="MT">Mato Grosso</option>
-                                <option value="MS">Mato Grosso do Sul</option>
-                                <option value="MG">Minas Gerais</option>
-                                <option value="PA">Pará</option>
-                                <option value="PB">Paraíba</option>
-                                <option value="PR">Paraná</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="PI">Piauí</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="RN">Rio Grande do Norte</option>
-                                <option value="RS">Rio Grande do Sul</option>
-                                <option value="RO">Rondônia</option>
-                                <option value="RR">Roraima</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="SP">São Paulo</option>
-                                <option value="SE">Sergipe</option>
-                                <option value="TO">Tocantins</option>
-                                <option value="ES">Estrangeiro</option>
-                            </select>
+                    <div v-show="visualizar === 'medico'" id="medico">
+                        Nome de usuário*: <input type="text" name="user" id="user" v-model="user">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        CRM*: <input type="text" name="crm" id="crm" v-model="crm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        UF*: <select id="estado" name="estado" v-model="uf">
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                            <option value="ES">Estrangeiro</option>
+                        </select>
                         <br><br>
-                        Senha*: <input type="password" name="senha" v-model="senha"> &nbsp;&nbsp;&nbsp;&nbsp;
-                        Confirmar senha*: <input type="password" name="confsenha" v-model="confsenha">&nbsp;&nbsp;&nbsp;&nbsp;
-                        Email*: <input type="email" name="email" v-model="email">
+                        Senha*: <input type="password" name="senha" id="senha" v-model="senha"> &nbsp;&nbsp;&nbsp;&nbsp;
+                        Confirmar senha*: <input type="password" name="confsenha" id="confsenha"
+                            v-model="confSenha">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Email*: <input type="email" name="email" id="email" v-model="email">
 
                         <br><br>
                         <p style="font-size: 25px">Dados pessoais</p>
-                        Nome completo*: <input type="text" name="nome" v-model="nome">&nbsp;&nbsp;&nbsp;&nbsp;
-                        Telefone*: <input type="text" name="telefone" v-model="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-                        Data de nascimento: <input type="date" name="nascimento" v-model="nascimento">&nbsp;&nbsp;&nbsp;&nbsp;
-                        Especialidade*: <input type="text" name="especialidade" v-model="esp">
+                        Nome completo*: <input type="text" name="nome" id="nome" v-model="nome">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Telefone*: <input type="text" name="telefone" id="telefone"
+                            v-model="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+                        Data de nascimento: <input type="date" name="nascimento" id="nascimento"
+                            v-model="nascimento">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Especialidade*: <input type="text" name="especialidade" id="esp" v-model="especialidade">
                         <br>
                     </div>
                     <div v-show="visualizar === 'secretario'">
-                        Nome de usuário*: <input type="text" name="user" v-model="user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        CPF*: <input type="text" name="CPF" v-model="cpf">
+                        Nome de usuário*: <input type="text" name="user" id="user"
+                            v-model="user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        CPF*: <input type="text" name="CPF" id="cpf" v-model="cpf">
                         <br><br>
-                        Senha*: <input type="password" name="senha" id="senha">&nbsp;&nbsp;&nbsp;&nbsp;
-                        Confirmar senha*: <input type="password" name="confsenha" id="confsenha">&nbsp;&nbsp;&nbsp;&nbsp;
-                        Email*: <input type="email" name="email" id="email">
+                        Senha*: <input type="password" name="senha" id="senha" v-model="senha">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Confirmar senha*: <input type="password" name="confsenha" id="confsenha"
+                            v-model="confSenha">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Email*: <input type="email" name="email" id="email" v-model="email">
 
                         <br><br>
                         <p style="font-size: 25px">Dados pessoais</p>
-                        Nome completo*: <input type="text" name="nome" id="nome">&nbsp;&nbsp;&nbsp;&nbsp;
-                        Telefone*: <input type="text" name="telefone" id="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
-                        Data de nascimento: <input type="date" name="nascimento" id="nascimento">
-                        
+                        Nome completo*: <input type="text" name="nome" id="nome" v-model="nome">&nbsp;&nbsp;&nbsp;&nbsp;
+                        Telefone*: <input type="text" name="telefone" id="telefone"
+                            v-model="telefone">&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
+                        Data de nascimento: <input type="date" name="nascimento" id="nascimento" v-model="nascimento">
+
                         <br>
                     </div>
-            </div>
-            <br>
-            <h6>(*) campos obrigatórios</h6>
-            <br>
-            <div class="btn-group-horizontal text-center">
-                <a href="tela-login.html" id="buttonLink"><button class="btn btn-secondary" type="button" id="cancel">Cancelar</button></a>
-                <button class="btn btn-secondary" type="button" id="in">Salvar</button>
-            </div>
-            <br>
-            </div>
-            <br>
+                </div>
+                <br>
+                <h6>(*) campos obrigatórios</h6>
+                <br>
+                <div class="btn-group-horizontal text-center">
+                    <a href="tela-login.html" id="buttonLink"><button class="btn btn-danger" type="button"
+                            id="cancel">Cancelar</button></a>
+                    <button class="btn btn-secondary" type="submit" id="in" v-on:click="realizaCadastro()">Salvar</button>
+                </div>
+                <br>
+            </form>
         </div>
-        <script>
-            var ver = new Vue({
-                el: "#ver",
-                data: {
-                    visualizar:"",
+        <br>
+    </div>
+    <script>
+        var ver = new Vue({
+            el: "#ver",
+            data: {
+                errors: [],
+                visualizar: "",
+                user: null,
+                senha: null,
+                confSenha: null,
+                nome: null,
+                crm: null,
+                telefone: null,
+                especialidade: null,
+                email: null,
+                nascimento: null,
+                uf: null,
+                cpf: null
+            }, methods: {
+                realizaCadastro: function(){
+                    alert('Usuário '+this.visualizar+' foi cadastrado com sucesso!');
+                },
+
+                checkForm: function (e) {
+                    this.errors = [];
+
+                    if (!this.nome) {
+                        this.errors.push('O nome é obrigatório.');
+                    }
+                    if (!this.email) {
+                        this.errors.push('O e-mail é obrigatório.');
+                    } else if (!this.validEmail(this.email)) {
+                        this.errors.push('Utilize um e-mail válido.');
+                    }
+                    if (!this.user) {
+                        this.errors.push('O nome de usuário é obrigatório.');
+                    }
+                    if (!this.senha) {
+                        this.errors.push('A senha é obrigatória.');
+                    } else if (this.senha !== this.confSenha) {
+                        this.errors.push('As senhas não correspondem.');
+                    }
+                    if (this.visualizar === 'medico') {
+                        if (!this.crm) {
+                            this.errors.push('O CRM é obrigatório.');
+                        }
+                        if (!this.especialidade) {
+                            this.errors.push('A especialidade é obrigatória.');
+                        }
+                        if (!this.uf) {
+                        this.errors.push('O UF é obrigatório.');
+                    }
+                    }
+                    if (!this.telefone) {
+                        this.errors.push('O telefone é obrigatório.');
+                    }
+                    if (!this.nascimento) {
+                        this.errors.push('A data de nascimento é obrigatória.');
+                    }
+                    
+                    if (this.visualizar === 'secretario') {
+                        if (!this.cpf) {
+                            this.errors.push('O CPF é obrigatório.');
+                        }
+                    }
+
+                    if (!this.errors.length) {
+                        return true;
+                    }
+
+                    e.preventDefault();
+                },
+                validEmail: function (email) {
+                    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(email);
                 }
-                
-            });
-        </script>  
+            }
+        });
+
+    </script>
 </body>
+
 </html>
