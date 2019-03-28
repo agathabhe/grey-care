@@ -14,21 +14,19 @@
 </head>
 
 <body>
-    <p style="padding: 1px"></p>
     <div class="container" id="minhadiv">
         <!-- <header> -->
         <br>
-        <div class="row" style="height: 2px; margin-top: -9px">
-            <div class="col-sm-1 col-md-1">
-                <a href="tela-login.html"><img src="Images/LogoGC.png" style="width: 75%; margin-top: -20px"></img></a>
+        <div class="row" style="height: 2px; margin-top: -25px">
+            <div class="col-sm-2">
+                <a href="tela-login.html"><img src="Images/LogoGC.png" style="width: 50%; margin-top: -10px"></img></a>
             </div>
-            <div class="col-sm-2 col-md-2">
-                <p id="cabecalho">Criar uma nova conta</p>
+            <div class="col-sm-9">
+                <p style="margin-left: -120px; margin-top: 10px" id="cabecalho">Criar uma nova conta</p>
             </div>
         </div>
         <!-- </header> -->
-        <br><br><br>
-        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px" id="ver">
+        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
             <p style="font-size: 25px">Dados cadastrais</p>
             <div class="alert alert-danger " role="alert" v-if="errors.length">
                 <ul>
@@ -115,9 +113,7 @@
                         <br>
                     </div>
                 </div>
-                <br>
                 <h6>(*) campos obrigatórios</h6>
-                <br>
                 <div class="btn-group-horizontal text-center">
                     <a href="tela-login.html" id="buttonLink"><button class="btn btn-danger" type="button"
                             id="cancel">Cancelar</button></a>
