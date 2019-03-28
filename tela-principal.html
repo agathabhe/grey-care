@@ -27,12 +27,12 @@
                     <ul class="nav nav-pills nav-stacked" style="margin-left: 10px; margin-bottom: 330px">
                         <li class="active"><a href="#" id="linkcolor" v-on:click="escondePacientes()">Página Inicial</a>
                         </li>
-                        <li><a href="#" id="linkcolor" v-on:click="mostrarPacientes()">Pacientes</a></li>
+                        <li class="active"><a href="#" id="linkcolor" v-on:click="mostrarPacientes()">Pacientes</a></li>
                         <!-- <li><a class="disabled" id="linkcolor">Consultas</a></li> -->
                     </ul>
 
                     <a class="disabled" id="linkcolor">
-                        <h4 style="margin-left: 40px">alterar meus dados</h4>
+                        <h4 style="margin-left: 40px">Alterar meus dados</h4>
                     </a>
             </div>
             <div>
@@ -52,13 +52,9 @@
                             <tr>
                                 <th scope="col">Nome</th>
                                 <th scope="col">CPF</th>
-                                <th scope="col">Data de Nascimento</th>
                                 <th scope="col">Telefone</th>
-                                <th scope="col">Endereço</th>
-                                <th scope="col">CEP</th>
                                 <th scope="col">Sexo</th>
                                 <th scope="col">E-mail</th>
-                                <th scope="col">Estado Civil</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -68,37 +64,48 @@
                             <tr v-for="paciente in pacientes">
                                 <td scope="row">{{paciente.nome}}</td>
                                 <td scope="row">{{paciente.cpf}}</td>
-                                <td scope="row">{{paciente.dataNascimento}}</td>
                                 <td scope="row">{{paciente.telefone}}</td>
-                                <td scope="row">{{paciente.endereco}}</td>
-                                <td scope="row">{{paciente.cep}}</td>
                                 <td scope="row">{{paciente.sexo}}</td>
                                 <td scope="row">{{paciente.email}}</td>
-                                <td scope="row">{{paciente.estadoCivil}}</td>
+                                <td scope="row"> <button type="button" class="btn btn-primary"
+                                        v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
+                                </td>
                                 <td scope="row">
                                     <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>
                                 </td>
                                 <td scope="row"> <button type="button" class="btn btn-danger"><i
                                             class="fas fa-trash-alt"></i></button></td>
-                                <td scope="row"> <button type="button" class="btn btn-primary"
-                                        v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
+                    <hr>
                 </div>
-                <div class="col-md-8" style="margin-left: 20px;" v-show="mostraPaciente">
+                <div class="col-md-8" v-show="mostraPaciente">
+                    <br>
+
                     <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp;
                         Informações de Paciente</p>
-                        <p>Nome: {{paciente.nome}}</p>
-                        <p>CPF: {{paciente.cpf}}</p>
-                        <p>Data de Nascimento: {{paciente.dataNascimento}}</p>
-                        <p>Telefone: {{paciente.telefone}}</p>
-                        <p>Endereço: {{paciente.endereco}}</p>
-                        <p>CEP: {{paciente.cep}}</p>
-                        <p>Sexo: {{paciente.sexo}}</p>
-                        <p>E-mail: {{paciente.email}}</p>
-                        <p>Estado Civil: {{paciente.estadoCivil}}</p>
+
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Nome: {{paciente.nome}}</td>
+                                <td>&emsp; CPF: {{paciente.cpf}}</td>
+                                <td colspan="2">Data de Nascimento: {{paciente.dataNascimento}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">Telefone: {{paciente.telefone}}</td>
+                                <td colspan="1">Endereço: {{paciente.endereco}}</td>
+                                <td>CEP: {{paciente.cep}}</td>
+                            </tr>
+                            <tr>
+                                <td>Sexo: {{paciente.sexo}}</td>
+                                <td>E-mail: {{paciente.email}}</td>
+                                <td>Estado Civil: {{paciente.estadoCivil}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
                 </div>
 
             </div>
@@ -155,7 +162,11 @@
                     this.mostraTabela = false;
                 },
                 mostrarPaciente: function (paciente) {
-                    this.mostraPaciente = true;
+                    if(this.mostraPaciente == true){
+                        this.mostraPaciente = false;
+                    }else{
+                        this.mostraPaciente = true;
+                    }
                     this.paciente = paciente;
                 }
             }
