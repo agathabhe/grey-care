@@ -105,11 +105,16 @@ fieldset{
 	} 
 }
 
-.nav-pills > li.active > a{
-    color: #02474e;
-    background-color: #02474e;
+.nav-pills>li.active>a,.nav-pills>li.active>a:hover{
+    color: #197980;
+    background-color: #197980;
 }
 
+.nav-pills>li.active>a:focus{
+	color: #02474e;
+    background-color: #02474e;
+	
+}
 .nav-pills > li.active > a:hover{
     color: #02474e;
     background-color: #02474e;
@@ -128,6 +133,17 @@ fieldset{
 .row.no-gutter [class*='col-']:not(:last-child) {
   padding-right: 0;
   padding-left: 0;
+}
+
+html { overflow-x: hidden; }
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
 }
 
 
