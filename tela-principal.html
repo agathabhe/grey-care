@@ -12,7 +12,7 @@
 
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>GreyCare</title>
@@ -24,26 +24,29 @@
             <div class="col-sm-3  sidenav" style="padding-right: 15px">
                 <h2 style="color: white; margin-left: 10px"> Menu</h3>
                     <hr>
-                    <ul class="nav nav-pills nav-stacked" style="margin-left: 10px; margin-bottom: 330px">
+                    <ul class="nav nav-pills nav-stacked" style="margin-left: 10px; margin-bottom: 380px">
                         <li class="active"><a href="#" id="linkcolor" v-on:click="escondePacientes()">Página Inicial</a>
                         </li>
                         <li class="active"><a href="#" id="linkcolor" v-on:click="mostrarPacientes()">Pacientes</a></li>
-                        <!-- <li><a class="disabled" id="linkcolor">Consultas</a></li> -->
+                        <!--<li class="acitve"><a href="#" id="linkcolor" class="disabled">Consultas</a></li>-->
                     </ul>
-
-                    <a class="disabled" id="linkcolor">
-                        <h4 style="margin-left: 40px">Alterar meus dados</h4>
-                    </a>
+                    <span style="margin-left: 2%">
+                        <a class="disabled" id="linkcolor"><img src="Images/gears.png" style="width:30px; height: 30px"></img>Alterar meus dados</a>
+                    </span>
             </div>
             <div>
                 <header id="mainheader">
                     <p></p>
-                    <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp; Seja bem vindo(a),
-                        Agatha!</p>
+                    <span id="cabecalho"> &emsp; Seja bem vindo(a), Agatha!
+                            
+                            <span style="margin-left: 33%"><a href="tela-login.html" id="buttonLink"><button class="btn btn-danger" type="button" id="sair">Sair</button></a></span>
+                            
+                    </span>
+                    <p style="margin-bottom: 15px"></p>
                 </header>
                 <br>
             </div>
-            <div class="row" v-show="mostraTabela">
+            <div class="row" v-show="mostraTabela" style="color: white">
                 <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp;
                     Pacientes</p>
                 <div class="col-md-8">
