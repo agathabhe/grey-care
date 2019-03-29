@@ -31,16 +31,18 @@
                         <!--<li class="acitve"><a href="#" id="linkcolor" class="disabled">Consultas</a></li>-->
                     </ul>
                     <span style="margin-left: 2%">
-                        <a class="disabled" id="linkcolor"><img src="Images/gears.png" style="width:30px; height: 30px"></img>Alterar meus dados</a>
+                        <a class="disabled" id="linkcolor"><img src="Images/gears.png"
+                                style="width:30px; height: 30px"></img>Alterar meus dados</a>
                     </span>
             </div>
             <div>
                 <header id="mainheader">
                     <p></p>
                     <span id="cabecalho"> &emsp; Seja bem vindo(a), Agatha!
-                            
-                            <span style="margin-left: 33%"><a href="tela-login.html" id="buttonLink"><button class="btn btn-danger" type="button" id="sair">Sair</button></a></span>
-                            
+
+                        <span style="margin-left: 33%"><a href="tela-login.html" id="buttonLink"><button
+                                    class="btn btn-danger" type="button" id="sair">Sair</button></a></span>
+
                     </span>
                     <p style="margin-bottom: 15px"></p>
                 </header>
@@ -81,34 +83,35 @@
                             </tr>
                         </tbody>
                     </table>
+                    &nbsp;
                     <hr>
                 </div>
                 <div class="col-md-8" v-show="mostraPaciente">
                     <br>
+                    <div class="container-fluid">
+                        <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">
+                            &nbsp;Informações de Paciente</p>
 
-                    <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&emsp;
-                        Informações de Paciente</p>
-
-                    <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <td>Nome: {{paciente.nome}}</td>
-                                <td>&emsp; CPF: {{paciente.cpf}}</td>
-                                <td colspan="2">Data de Nascimento: {{paciente.dataNascimento}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="1">Telefone: {{paciente.telefone}}</td>
-                                <td colspan="1">Endereço: {{paciente.endereco}}</td>
-                                <td>CEP: {{paciente.cep}}</td>
-                            </tr>
-                            <tr>
-                                <td>Sexo: {{paciente.sexo}}</td>
-                                <td>E-mail: {{paciente.email}}</td>
-                                <td>Estado Civil: {{paciente.estadoCivil}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>Nome: {{paciente.nome}}</td>
+                                    <td>CPF: {{paciente.cpf}}</td>
+                                    <td colspan="2">Data de Nascimento: {{paciente.dataNascimento}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">Telefone: {{paciente.telefone}}</td>
+                                    <td colspan="1">Endereço: {{paciente.endereco}}</td>
+                                    <td>CEP: {{paciente.cep}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sexo: {{paciente.sexo}}</td>
+                                    <td>E-mail: {{paciente.email}}</td>
+                                    <td>Estado Civil: {{paciente.estadoCivil}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
@@ -165,9 +168,9 @@
                     this.mostraTabela = false;
                 },
                 mostrarPaciente: function (paciente) {
-                    if(this.mostraPaciente == true){
+                    if (this.mostraPaciente == true) {
                         this.mostraPaciente = false;
-                    }else{
+                    } else {
                         this.mostraPaciente = true;
                     }
                     this.paciente = paciente;
