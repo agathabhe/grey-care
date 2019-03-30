@@ -19,21 +19,22 @@
         <br>
         <div class="row" style="height: 2px; margin-top: -25px">
             <div class="col-sm-8 text-left">
-                <span style="font-size: 32px; position: absolute"><a href="tela-login.html"><img src="Images/LogoGC.png" style="width: 70px; height: 70px; margin-left: -10px"></img></a>
+                <span style="font-size: 32px; position: absolute"><a href="tela-login.html"><img src="Images/LogoGC.png"
+                            style="width: 70px; height: 70px; margin-left: -10px"></img></a>
                     Criar uma nova conta
                 </span>
             </div>
         </div>
         <!-- </header> -->
-        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
+        <div class="container-fluid"
+            style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
             <p style="font-size: 25px">Dados cadastrais</p>
             <div class="alert alert-danger " role="alert" v-if="errors.length">
                 <ul>
                     <li v-for="error in errors">{{ error }}</li>
                 </ul>
             </div>
-            <form @submit="checkForm" action="tela-login.html"
-            method="post">
+            <form @submit="checkForm" action="tela-login.html" method="post">
                 <div class="radio">
                     Tipo de conta*: &nbsp
                     <label><input type="radio" name="option" v-model="visualizar" value="medico">Médico(a)</label>
@@ -116,7 +117,7 @@
                 <div class="btn-group-horizontal text-center">
                     <a href="tela-login.html" id="buttonLink"><button class="btn btn-danger" type="button"
                             id="cancel">Cancelar</button></a>
-                    <button class="btn btn-secondary" type="submit" id="in" v-on:click="realizaCadastro()">Salvar</button>
+                    <button class="btn btn-secondary" type="submit" id="in">Salvar</button>
                 </div>
                 <br>
             </form>
@@ -141,10 +142,6 @@
                 uf: null,
                 cpf: null
             }, methods: {
-                realizaCadastro: function(){
-                    alert('Usuário '+this.visualizar+' foi cadastrado com sucesso!');
-                },
-
                 checkForm: function (e) {
                     this.errors = [];
 
@@ -159,6 +156,9 @@
                     if (!this.user) {
                         this.errors.push('O nome de usuário é obrigatório.');
                     }
+                    if(this.senha.length !== 6){
+                        this.errors.push('A senha deve ter 6 dígitos.')
+                    }
                     if (!this.senha) {
                         this.errors.push('A senha é obrigatória.');
                     } else if (this.senha !== this.confSenha) {
@@ -172,8 +172,8 @@
                             this.errors.push('A especialidade é obrigatória.');
                         }
                         if (!this.uf) {
-                        this.errors.push('O UF é obrigatório.');
-                    }
+                            this.errors.push('O UF é obrigatório.');
+                        }
                     }
                     if (!this.telefone) {
                         this.errors.push('O telefone é obrigatório.');
@@ -181,7 +181,7 @@
                     if (!this.nascimento) {
                         this.errors.push('A data de nascimento é obrigatória.');
                     }
-                    
+
                     if (this.visualizar === 'secretario') {
                         if (!this.cpf) {
                             this.errors.push('O CPF é obrigatório.');
@@ -189,6 +189,7 @@
                     }
 
                     if (!this.errors.length) {
+                        alert('Usuário ' + this.visualizar + ' foi cadastrado com sucesso!');
                         return true;
                     }
 
