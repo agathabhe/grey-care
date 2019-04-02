@@ -156,7 +156,7 @@
                     if (!this.user) {
                         this.errors.push('O nome de usuário é obrigatório.');
                     }
-                    if(this.senha.length !== 6){
+                    if(this.senha && this.senha.length !== 6){
                         this.errors.push('A senha deve ter 6 dígitos.')
                     }
                     if (!this.senha) {
