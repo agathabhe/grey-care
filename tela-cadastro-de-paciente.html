@@ -12,6 +12,7 @@
     <script src="js/vue.js"></script>
     <title>Cadastro de Paciente</title>
 </head>
+
 <body>
     <p style="padding: 1px"></p>
     <div class="container" id="minhadiv">
@@ -29,27 +30,27 @@
         </header> <br><br>
         <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px" id="ver">
             <p style="font-size: 25px">Dados Pessoais</p>
-            
-            Nome completo*: <input type="text" name="nome" v-model="nome">
-            CPF*: <input type="text" name="nome" v-model="cpf"><br><br>
-            Data de nascimento: <input type="date" name="nascimento" v-model="nascimento">
-            Telefone*: <input type="number" name="telefone" v-model="telefone">
-            Estado civil: <select>
+
+            Nome completo*: <input type="text" name="nome" v-model="paciente.nome">
+            CPF*: <input type="text" name="nome" v-model="paciente.cpf"><br><br>
+            Data de nascimento: <input type="date" name="nascimento" v-model="paciente.nascimento">
+            Telefone*: <input type="number" name="telefone" v-model="paciente.telefone">
+            Estado civil: <select v-model="paciente.estadoCivil">
                 <option value="solteiro">Solteiro(a)</option>
                 <option value="casado">Casado(a)</option>
             </select><br><br>
-            Endereço*: <input type="text" name="endereco" v-model="end">
-            CEP*: <input type="number" name="cep" v-model="cep">
-            Sexo*: <select>
+            Endereço*: <input type="text" name="endereco" v-model="paciente.endereco">
+            CEP*: <input type="number" name="cep" v-model="paciente.cep">
+            Sexo*: <select v-model="paciente.sexo">
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
             </select>
-            Email*: <input type="email" name="email" v-model="email">
+            Email*: <input type="email" name="email" v-model="paciente.email">
             <br><br>
             <p style="font-size: 25px">Dados Médicos</p>
             Alergias*:<br>
-            <textarea name="alergias" v-model="alergias" cols="30" rows="3"></textarea><br>
-            Tipo Sanguíneo: <select>
+            <textarea name="alergias" v-model="paciente.alergias" cols="30" rows="3"></textarea><br>
+            Tipo Sanguíneo: <select v-model="paciente.tipoSanguineo">
                 <option value="1">A+</option>
                 <option value="2">A-</option>
                 <option value="2">B+</option>
@@ -59,20 +60,44 @@
                 <option value="4">O+</option>
                 <option value="5">O-</option>
             </select>&nbsp;&nbsp;&nbsp;
-            Doador de sangue? Sim&nbsp;<input type="radio" name="resposta" id="sim"> Não&nbsp; <input type="radio" name="resposta"
-                id="no">
+            Doador de sangue? Sim&nbsp;<input type="radio" name="resposta" id="sim" v-model="paciente.doador"> Não&nbsp; <input type="radio"
+                name="resposta" id="no" v-model="paciente.doador">
             <h6>(*) campos obrigatórios</h6>
 
             <div class="btn-group-horizontal text-center">
                 <a href="tela-login.html" id="buttonLink"><button class="btn btn-secondary" type="button"
                         id="cancel">Cancelar</button></a>
-                <button class="btn btn-secondary" type="button" id="in">Salvar</button>
+                <button class="btn btn-secondary" type="button" id="in" v-on:click="realizaCadastro()">Salvar</button>
                 <br><br>
             </div>
         </div>
         <br>
     </div>
 
+    <script>
+        var ver = new Vue({
+            el: "#minhadiv",
+            data: {
+                paciente: {
+                    nome: null,
+                    cpf: null,
+                    nascimento: null,
+                    telefone: null,
+                    estadoCivil: null,
+                    endereco: null,
+                    cep: null,
+                    email: null,
+                    alergias: null,
+                    tipoSanguineo: null,
+                    doador: null
+                }
+            }, methods: {
+                realizaCadastro: function(){
+                    console.log(this.paciente);                 
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
