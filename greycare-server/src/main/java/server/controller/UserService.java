@@ -19,13 +19,15 @@ import com.sun.jersey.multipart.FormDataParam;
 import server.dao.UserDAO;
 import server.model.User;
 
+
+
 @Path("/users")
 public class UserService {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<User> getUsers() {
-		return UserDAO.getAllUsers();
+		return UserDAO.getAllUser();
 	}
 
 	// Controle da resposta (status code, mensagem)
@@ -47,7 +49,7 @@ public class UserService {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 		public User addUser(@FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
 			@FormDataParam("user") String user, @FormDataParam("senha")String senha,
-			@FormDataParam("confSenha") String confSenha, @FormDataParam("crm")String crm,	
+	 		@FormDataParam("confSenha") String confSenha, @FormDataParam("crm")String crm,	
 			@FormDataParam("telefone") String telefone, @FormDataParam("especialidade") String especialidade, 
 			@FormDataParam("email") String email, @FormDataParam("nascimento") String nascimento, 
 			@FormDataParam("cpf") String cpf) {
@@ -79,3 +81,4 @@ public class UserService {
 	
 
 }
+

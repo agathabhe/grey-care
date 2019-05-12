@@ -92,7 +92,7 @@ public class UserDAO {
 		}
 	}
 
-	public static List<User> getAllUsers() {
+	public static List<User> getAllUser() {
 		List<User> users = new ArrayList<User>();
 		try {
 			Statement stmt = connection.createStatement();
