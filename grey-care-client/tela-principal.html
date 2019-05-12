@@ -9,6 +9,8 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/httpVueLoader.js"></script>
+    <!-- <script src="components/menu/menu.js"></script> -->
 
 
     <meta charset="UTF-8">
@@ -21,31 +23,9 @@
 <body>
     <div class="container-fluid" id="paginaInicial">
         <div class="row no-gutter content">
-            <div class="col-sm-3  sidenav" style="padding-right: 15px">
-                <h2 style="color: white; margin-left: 10px"> Menu</h3>
-                    <hr>
-                    <ul class="nav nav-pills nav-stacked" style="margin-left: 10px; margin-bottom: 380px">
-                        <li class="active"><a href="#" id="linkcolor" v-on:click="escondePacientes()">Página Inicial</a>
-                        </li>
-                        <li class="active"><a href="#" id="linkcolor" v-on:click="mostrarPacientes()">Pacientes</a></li>
-                        <!--<li class="acitve"><a href="#" id="linkcolor" class="disabled">Consultas</a></li>-->
-                    </ul>
-                    <span style="margin-left: 2%">
-                        <a class="disabled" id="linkcolor"><img src="Images/gears.png"
-                                style="width:30px; height: 30px"></img>Alterar meus dados</a>
-                    </span>
-            </div>
+            <menusidebar></menusidebar>
             <div>
-                <header id="mainheader">
-                    <p></p>
-                    <span id="cabecalho"> &nbsp; Seja bem vindo(a), Agatha!
-
-                        <span style="margin-left: 33%"><a href="tela-login.html" id="buttonLink"><button
-                                    class="btn btn-danger" type="button" id="sair">Sair</button></a></span>
-
-                    </span>
-                    <p style="margin-bottom: 15px"></p>
-                </header>
+                <barratitulo v-bind:nomeusuario="usuario.nome"></barratitulo>
                 <br>
             </div>
             <div class="row" v-show="mostraTabela" style="color: white">
@@ -119,11 +99,23 @@
     </div>
 
     <script>
+        var MenuSidebar = httpVueLoader('./components/menu/menu.vue')
+        var BarraTitulo = httpVueLoader('./components/barra-titulo/barra-titulo.vue')
+       
         var paginaInicial = new Vue({
             el: "#paginaInicial",
+            components: {
+                menusidebar: MenuSidebar,
+                barratitulo: BarraTitulo,
+                
+            },
             data: {
                 mostraTabela: false,
                 mostraPaciente: false,
+                usuario: {
+                    nome: "Agatha Bhenares Alves Martins Rodrigues",
+                    nomeusuario: "grakt"
+                },
                 paciente: {
                     nome: '',
                     cpf: '',
