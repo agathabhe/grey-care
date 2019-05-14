@@ -32,17 +32,17 @@
                 <p style="font-size: 25px">Dados Pessoais</p>
                 <div class="form-group">
 
-                    Nome completo*: <input class="form-control" type="text" name="nome" v-model="name">
+                    Nome completo*: <input class="form-control" type="text" name="nome" v-model="nome">
                     CPF*: <input type="text" class="form-control" name="cpf" v-model="cpf"><br><br>
-                    Data de nascimento: <input type="date" class="form-control" name="nascimento" v-model="birth">
-                    Telefone*: <input type="text" name="telefone" class="form-control" v-model="phone">
+                    Data de nascimento: <input type="date" class="form-control" name="nascimento" v-model="nascimento">
+                    Telefone*: <input type="text" name="telefone" class="form-control" v-model="telefone">
                     Estado civil:   <select class="form-control" v-model="estadoCivil">
                                         <option value="solteiro">Solteiro(a)</option>
                                         <option value="casado">Casado(a)</option>
                                     </select><br><br>
                     Endereço*: <input  type="text" class="form-control" name="endereco" v-model="endereco">
                     CEP*: <input type="number" class="form-control" name="cep" v-model="cep">
-                    Sexo*:  <select class="form-control" v-model="sex">
+                    Sexo*:  <select class="form-control" v-model="sexo">
                                 <option value="masculino">Masculino</option>
                                 <option value="feminino">Feminino</option>
                             </select>
@@ -83,15 +83,15 @@
         var app = new Vue({
                 el: "#app",
                 data: {
-                    url: "http://localhost:8080/rest_persistence/api/users",
-                    name: null,
+                    url: "http://localhost:8080/grey-care-server/api/users",
+                    nome: null,
                     cpf: null,
-                    birth: null,
-                    phone: null,
+                    nascimento: null,
+                    telefone: null,
                     estadoCivil: null,
                     endereco: null,
                     cep: null,
-                    sex: null,
+                    sexo: null,
                     email: null,
                     alergias: null,
                     tipoSanguineo: null,
@@ -100,14 +100,14 @@
                 methods: {
                     submit() {
                         let formData = new FormData();
-                        formData.append('name', this.name);
+                        formData.append('nome', this.nome);
                         formData.append('cpf', this.cpf);
-                        formData.append('birth', this.birth);
-                        formData.append('phone', this.phone);
+                        formData.append('nascimento', this.nascimento);
+                        formData.append('telefone', this.telefone);
                         formData.append('estadoCivil', this.estadoCivil);
                         formData.append('endereco', this.endereco);
                         formData.append('cep', this.cep);
-                        formData.append('sex', this.sex);
+                        formData.append('sexo', this.sexo);
                         formData.append('email', this.email);
                         formData.append('alergias', this.alergias);
                         formData.append('tipoSanguineo', this.tipoSanguineo);
@@ -121,13 +121,10 @@
                             }
                         ).then(function (r) {
                             console.log(r.data);
-                            window.location.replace("login.html");
+                            window.location.replace("index.html");
                         }).catch(function (error) {
                             console.log(erro);
                         });
-                    },
-                    handleFileUpload() {
-                        this.file = this.$refs.file.files[0];                        
                     }
                 }
             });

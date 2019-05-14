@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -45,6 +46,7 @@ public class PacienteService {
 		}
 
 		@POST
+		@Consumes(MediaType.MULTIPART_FORM_DATA)
 		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 		//int id, String nome, String cpf, String nascimento, String telefone, String estadoCivil,
 		//String endereco, String cep, String email, String alergias, String tipoSanguineo, String doador
@@ -58,6 +60,7 @@ public class PacienteService {
 		@PUT
 		@Path("/{id}")
 		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+		@Consumes(MediaType.MULTIPART_FORM_DATA)
 		public Paciente updatePaciente(@PathParam("id") int id, @FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
 				@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep ,@FormDataParam("email") String email , 
 				@FormDataParam("alergias") String alergias,	@FormDataParam("tipoSanguineo") String tipoSanguineo, @FormDataParam("doador") String doador) {

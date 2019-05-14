@@ -10,6 +10,8 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/axios.min.js"></script>
     <title>Criar Conta</title>
 </head>
 
@@ -31,10 +33,10 @@
             <p style="font-size: 25px">Dados cadastrais</p>
             <div class="alert alert-danger " role="alert" v-if="errors.length">
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                   <li v-for="error in errors">{{ error }}</li>
                 </ul>
             </div>
-            <form @submit="checkForm" action="tela-login.html" method="post">
+            <form @submit="checkForm" action="index.html" method="post">
                 <div class="radio">
                     Tipo de conta*: &nbsp
                     <label><input type="radio" name="option" v-model="usuario.tipo" value="medico">Médico(a)</label>
@@ -44,8 +46,7 @@
                     <br><br>
                     <div v-show="usuario.tipo !== ''">
                         Nome de usuário*: <input type="text" name="user" id="user" v-model="usuario.user">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
                         <div v-show="usuario.tipo === 'secretario'">
                         CPF*: <input type="text" name="cpf" id="cpf" v-model="usuario.cpf">
                         <br><br>
@@ -71,9 +72,9 @@
                     </div>
                     <h6>(*) campos obrigatórios</h6>
                     <div class="btn-group-horizontal text-center">
-                        <a href="login.html" id="buttonLink"><button class="btn btn-danger" type="button"
+                        <a href="index.html" id="buttonLink"><button class="btn btn-danger" type="button"
                                 id="cancel">Cancelar</button></a>
-                        <button class="btn btn-secondary" type="submit" id="in">Salvar</button>
+                        <button class="btn btn-secondary" type="submit" id="in" @click="submit">Salvar</button>
                     </div>
                     <br>
                 </div>
@@ -100,6 +101,32 @@
                     cpf: null
                 }
             }, methods: {
+                submit() {
+                        let formData = new FormData();
+                        formData.append('tipo', this.tipo);
+                        formData.append('user', this.user);
+                        formData.append('senha', this.senha);
+                        formData.append('nome', this.nome);
+                        formData.append('crm', this.crm);
+                        formData.append('telefone', this.telefone);
+                        formData.append('especialidade', this.especialidade);
+                        formData.append('email', this.email);
+                        formData.append('nascimento', this.nascimento);
+                        formData.append('cpf', this.cpf);
+                        axios.post(this.url,
+                            formData,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            }
+                        ).then(function (r) {
+                            console.log(r.data);
+                            window.location.replace("index.html");
+                        }).catch(function (error) {
+                            console.log(erro);
+                        });
+                    }
                 checkForm: function (e) {
                     this.errors = [];
 
