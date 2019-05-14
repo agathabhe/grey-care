@@ -19,7 +19,7 @@ public class UserDAO {
 			String telefone, String especialidade, String email, String nascimento, String cpf) {
 		try {
 			PreparedStatement pStmt = connection.prepareStatement(
-					"insert into users(nome, tipo, user, senha, confSenha, crm, telefone, especialidade, \n"
+					"insert into users(nome, tipo, user, senha, conf_senha, crm, telefone, especialidade, \n"
 							+ "					email, nascimento, cpf) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			pStmt.setString(1, nome);
@@ -39,7 +39,7 @@ public class UserDAO {
 //				int id, String tipo, String user, String senha, String confSenha, String nome, String crm,
 //				String telefone, String especialidade, String email, String nascimento, String cpf
 				return new User(rs.getInt("id"), rs.getString("tipo"), rs.getString("user"), rs.getString("senha"),
-						rs.getString("confSenha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
+						rs.getString("conf_senha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
 						rs.getString("especialidade"), rs.getString("email"), rs.getString("nascimento"),
 						rs.getString("cpf"));
 			}
@@ -53,7 +53,7 @@ public class UserDAO {
 	public static User updateUser(int id, String tipo, String user, String senha, String confSenha, String nome, String crm,
 			String telefone, String especialidade, String email, String nascimento, String cpf) {
 		try {
-			PreparedStatement pStmt = connection.prepareStatement("update users set nome=?, tipo=?, user=?, senha=?, confSenha=?, crm=?, telefone=?, especialidade=?, email=?, nascimento=?, cpf=? where id=?",
+			PreparedStatement pStmt = connection.prepareStatement("update users set nome=?, tipo=?, user=?, senha=?, conf_senha=?, crm=?, telefone=?, especialidade=?, email=?, nascimento=?, cpf=? where id=?",
 					Statement.RETURN_GENERATED_KEYS);
 			pStmt.setString(1, nome);
 			pStmt.setString(2, tipo);
@@ -71,7 +71,7 @@ public class UserDAO {
 			ResultSet rs = pStmt.getGeneratedKeys();
 			if (rs.next()) {
 				return new User(rs.getInt("id"), rs.getString("tipo"), rs.getString("user"), rs.getString("senha"),
-						rs.getString("confSenha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
+						rs.getString("conf_senha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
 						rs.getString("especialidade"), rs.getString("email"), rs.getString("nascimento"),
 						rs.getString("cpf"));
 			}
@@ -99,7 +99,7 @@ public class UserDAO {
 			ResultSet rs = stmt.executeQuery("select * from users order by id");
 			while (rs.next()) {
 				User user = new User(rs.getInt("id"),  rs.getString("tipo"), rs.getString("user"), rs.getString("senha"),
-						rs.getString("confSenha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
+						rs.getString("conf_senha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
 						rs.getString("especialidade"), rs.getString("email"), rs.getString("nascimento"),
 						rs.getString("cpf"));
 				users.add(user);
@@ -118,7 +118,7 @@ public class UserDAO {
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
 				return new User(rs.getInt("id"), rs.getString("tipo"), rs.getString("user"), rs.getString("senha"),
-						rs.getString("confSenha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
+						rs.getString("conf_senha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
 						rs.getString("especialidade"), rs.getString("email"), rs.getString("nascimento"),
 						rs.getString("cpf"));
 			}
@@ -136,7 +136,7 @@ public class UserDAO {
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
 				return new User(rs.getInt("id"), rs.getString("tipo"), rs.getString("user"), rs.getString("senha"),
-						rs.getString("confSenha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
+						rs.getString("conf_senha"), rs.getString("nome"), rs.getString("crm"), rs.getString("telefone"),
 						rs.getString("especialidade"), rs.getString("email"), rs.getString("nascimento"),
 						rs.getString("cpf"));
 			}

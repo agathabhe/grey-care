@@ -20,10 +20,10 @@ public class DbUtil {
 				prop.load(inputStream);
 				String driver = prop.getProperty("driver");
 				String url = prop.getProperty("url");
-				String user = prop.getProperty("user");
+				String username = prop.getProperty("user");
 				String password = prop.getProperty("password");
 				Class.forName(driver);
-				connection = DriverManager.getConnection(url, user, password);
+				connection = DriverManager.getConnection(url, username, password);
 				return connection;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

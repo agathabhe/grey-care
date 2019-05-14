@@ -18,7 +18,7 @@ public class PacienteDAO {
 	public static Paciente addPaciente(String nome, String cpf, String nascimento, String telefone, String estadoCivil,
 			String endereco, String cep, String email, String alergias, String tipoSanguineo, String doador) {
 		try {
-			PreparedStatement pStmt = connection.prepareStatement("insert into users(nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email, alergias, tipoSanguineo, doador) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+			PreparedStatement pStmt = connection.prepareStatement("insert into pacientes(nome, cpf, nascimento, telefone, estado_civil, endereco, cep, email, alergias, tipo_sanguineo, doador) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			pStmt.setString(1, nome);
 			pStmt.setString(2, cpf);
@@ -36,8 +36,8 @@ public class PacienteDAO {
 			//int id, String nome, String cpf, String nascimento, String telefone, String estadoCivil,
 			//String endereco, String cep, String email, String alergias, String tipoSanguineo, String doador
 			if (rs.next()) {	
-				return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estadoCivil"),
-					rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipoSanguineo"), rs.getString("doador"));
+				return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estado_civil"),
+					rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipo_sanguineo"), rs.getString("doador"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class PacienteDAO {
 	public static Paciente updatePaciente(int id, String nome, String cpf, String nascimento, String telefone, String estadoCivil,
 			String endereco, String cep, String email, String alergias, String tipoSanguineo, String doador) {
 		try {
-			PreparedStatement pStmt = connection.prepareStatement("update users set nome=?, cpf=?, nascimento=?, telefone=?, estadoCivil=?, endereco=?, cep=?, email=?, alergias=?, tipoSanguineo=?, doador=?  where id=?",
+			PreparedStatement pStmt = connection.prepareStatement("update pacientes set nome=?, cpf=?, nascimento=?, telefone=?, estado_civil=?, endereco=?, cep=?, email=?, alergias=?, tipo_sanguineo=?, doador=?  where id=?",
 					Statement.RETURN_GENERATED_KEYS);
 			pStmt.setString(1, nome);
 			pStmt.setString(2, cpf);
@@ -66,8 +66,8 @@ public class PacienteDAO {
 			pStmt.executeUpdate();
 			ResultSet rs = pStmt.getGeneratedKeys();
 			if (rs.next()) {
-			return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estadoCivil"),
-					rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipoSanguineo"), rs.getString("doador"));
+			return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estado_civil"),
+					rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipo_sanguineo"), rs.getString("doador"));
 			}
 			
 		} catch (SQLException e) {
@@ -91,10 +91,10 @@ public class PacienteDAO {
 		List<Paciente> pacientes = new ArrayList<Paciente>();
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from users order by id");
+			ResultSet rs = stmt.executeQuery("select * from pacientes order by id");
 			while (rs.next()) {
-				Paciente paciente = new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estadoCivil"),
-						rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipoSanguineo"), rs.getString("doador"));
+				Paciente paciente = new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estado_civil"),
+						rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipo_sanguineo"), rs.getString("doador"));
 				pacientes.add(paciente);
 			}
 		} catch (SQLException e) {
@@ -106,12 +106,12 @@ public class PacienteDAO {
 
 	public static Paciente getPaciente(int id) {
 		try {
-			PreparedStatement pStmt = connection.prepareStatement("select * from users where id=?");
+			PreparedStatement pStmt = connection.prepareStatement("select * from pacientes where id=?");
 			pStmt.setInt(1, id);
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
-				return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estadoCivil"),
-						rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipoSanguineo"), rs.getString("doador"));
+				return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estado_civil"),
+						rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipo_sanguineo"), rs.getString("doador"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,8 +126,8 @@ public class PacienteDAO {
 			pStmt.setString(1, nome);
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
-				return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estadoCivil"),
-						rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipoSanguineo"), rs.getString("doador"));
+				return new Paciente(rs.getInt("id"), rs.getString("nome"),rs.getString("cpf"), rs.getString("nascimento"), rs.getString("telefone"), rs.getString("estado_civil"),
+						rs.getString("endereco"), rs.getString("cep"), rs.getString("email"), rs.getString("alergias"), rs.getString("tipo_sanguineo"), rs.getString("doador"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
