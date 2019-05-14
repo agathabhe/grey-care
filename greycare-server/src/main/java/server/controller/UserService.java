@@ -2,6 +2,7 @@ package server.controller;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,8 +20,6 @@ import com.sun.jersey.multipart.FormDataParam;
 
 import server.dao.UserDAO;
 import server.model.User;
-
-
 
 @Path("/users")
 public class UserService {
@@ -47,6 +46,7 @@ public class UserService {
 	}
 
 	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)	
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 		public User addUser(@FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
 			@FormDataParam("user") String user, @FormDataParam("senha")String senha,
@@ -61,10 +61,11 @@ public class UserService {
 
 	@PUT
 	@Path("/{id}")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)	
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public User updateUser(@PathParam("id") int id, @FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
-			@FormDataParam("user") String user, @FormDataParam("senha")String senha,
-			@FormDataParam("confSenha") String confSenha, @FormDataParam("crm")String crm,	
+			@FormDataParam("user") String user, @FormDataParam("senha") String senha,
+			@FormDataParam("confSenha") String confSenha, @FormDataParam("crm") String crm,	
 			@FormDataParam("telefone") String telefone, @FormDataParam("especialidade") String especialidade, 
 			@FormDataParam("email") String email, @FormDataParam("nascimento") String nascimento, 
 			@FormDataParam("cpf") String cpf) {
