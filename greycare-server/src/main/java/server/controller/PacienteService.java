@@ -3,6 +3,7 @@ package server.controller;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -46,8 +47,7 @@ public class PacienteService {
 
 		@POST
 		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		//int id, String nome, String cpf, String nascimento, String telefone, String estadoCivil,
-		//String endereco, String cep, String email, String alergias, String tipoSanguineo, String doador
+		@Consumes(MediaType.MULTIPART_FORM_DATA)
 		public Paciente addPaciente(@FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
 				@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep ,@FormDataParam("email")  String email , 
 				@FormDataParam("alergias") String alergias,	@FormDataParam("tipoSanguineo") String tipoSanguineo, @FormDataParam("doador") String doador){
@@ -57,6 +57,7 @@ public class PacienteService {
 
 		@PUT
 		@Path("/{id}")
+		@Consumes(MediaType.MULTIPART_FORM_DATA)
 		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 		public Paciente updatePaciente(@PathParam("id") int id, @FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
 				@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep ,@FormDataParam("email") String email , 
