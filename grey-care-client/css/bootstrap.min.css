@@ -18,9 +18,8 @@ input{
  }
 
 #minhadiv{
-	position:absolute;
-	top:2%;
-	left:1%;
+	position:relative;
+	top:14px;
 	z-index:11;
 	background-color:#02474e;
 	width:98%;
