@@ -43,32 +43,49 @@
                             value="secretario">Secretário(a)</label>
                     <br><br>
                     <div v-show="usuario.tipo !== ''">
-                        Nome de usuário*: <input type="text" class="form-control" name="user" id="user"
-                            v-model="usuario.username">
-                        <div v-show="usuario.tipo === 'secretario'">
-                            CPF*: <input type="text" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
-                        </div>
-                        <div v-show="usuario.tipo === 'medico'" id="medico">
-                            CRM*: <input type="text" class="form-control" name="crm" id="crm" v-model="usuario.crm">
-                            Especialidade*: <input type="text" class="form-control" name="especialidade" id="esp"
-                                v-model="usuario.especialidade">
-                        </div>
-                        Senha*: <input type="password" class="form-control" name="senha" id="senha"
-                            v-model="usuario.senha">
-                        Confirmar senha*: <input type="password" class="form-control" name="confsenha" id="confsenha"
-                            v-model="usuario.confSenha">
-                        Email*: <input type="email" class="form-control" name="email" id="email"
-                            v-model="usuario.email">
+                            <div v-show="usuario.tipo === 'secretario'">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">Nome de usuário*:</span>
+                                    <input type="text" class="form-control" placeholder="Usuário" aria-describedby="basic-addon1" id="user"v-model="usuario.username">
+                                    <span class="input-group-addon" id="basic-addon1">CPF*:</span>
+                                    <input type="text" class="form-control" placeholder="CPF" id="cpf" aria-describedby="basic-addon1" v-model="usuario.cpf">
+                                </div>
+                            </div>
 
-                        <br>
-                        <p style="font-size: 25px">Dados pessoais</p>
-                        Nome completo*: <input type="text" class="form-control" name="nome" id="nome"
-                            v-model="usuario.nome">
-                        Telefone*: <input type="text" class="form-control" name="telefone" id="telefone"
-                            v-model="usuario.telefone">
-                        Data de nascimento: <input type="date" class="form-control" name="nascimento" id="nascimento"
-                            v-model="usuario.nascimento">
-                        <br>
+                            <div v-show="usuario.tipo === 'medico'" id="medico">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">Nome de usuário*:</span>
+                                    <input type="text" class="form-control" placeholder="Usuário" aria-describedby="basic-addon1" id="user"v-model="usuario.username">
+                                    <span class="input-group-addon" id="basic-addon1">CRM*:</span>
+                                    <input type="text" class="form-control" placeholder="CRM" aria-describedby="basic-addon1" id="crm" v-model="usuario.crm">
+                                    <span class="input-group-addon" id="basic-addon1">Especialidade*:</span>
+                                    <input type="text" class="form-control" placeholder="Especialidade" aria-describedby="basic-addon1" id="esp" v-model="usuario.especialidade">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Senha*:</span>
+                                <input type="password" class="form-control" placeholder="Senha" aria-describedby="basic-addon1" id="senha" v-model="usuario.senha">
+                                <span class="input-group-addon" id="basic-addon1">Confirmar senha*:</span>
+                                <input type="password" class="form-control" placeholder="Confirmar senha" aria-describedby="basic-addon1" id="confsenha" v-model="usuario.confSenha">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Email*:</span>
+                                <input type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" id="email" v-model="usuario.email">
+                            </div>
+                            <br>
+                            <p style="font-size: 25px">Dados pessoais</p>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Nome completo*:</span>
+                                <input type="text" class="form-control" placeholder="Nome completo" aria-describedby="basic-addon1" id="nome" v-model="usuario.nome">
+                                <span class="input-group-addon" id="basic-addon1">Telefone*:</span>
+                                <input type="text" class="form-control" placeholder="Telefone" aria-describedby="basic-addon1" id="telefone" v-model="usuario.telefone">
+                                <span class="input-group-addon" id="basic-addon1">Data de nascimento:</span>
+                                <input type="date" class="form-control" placeholder="Data de nascimento" aria-describedby="basic-addon1" id="nascimento" v-model="usuario.nascimento">
+                            </div>
+                            <br>
                     </div>
                     <h6>(*) campos obrigatórios</h6>
                     <div class="btn-group-horizontal text-center">
@@ -76,13 +93,13 @@
                                 id="cancel">Cancelar</button></a>
                         <button class="btn btn-secondary" type="submit" id="in" @click="submit">Salvar</button>
                     </div>
-                    <br>
                 </div>
         </div>
         </form>
+        <br>
     </div>
-    <br>
     </div>
+    
     <script>
         var ver = new Vue({
             el: "#ver",
