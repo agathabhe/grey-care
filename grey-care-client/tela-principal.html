@@ -109,49 +109,49 @@
                 barratitulo: BarraTitulo,
                 
             },
-            data: {
-                mostraTabela: false,
-                mostraPaciente: false,
-                usuario: {
-                    nome: "Agatha Bhenares Alves Martins Rodrigues",
-                    nomeusuario: "grakt"
-                },
-                paciente: {
-                    nome: '',
-                    cpf: '',
-                    dataNascimento: '',
-                    telefone: '',
-                    endereco: '',
-                    cep: '',
-                    sexo: '',
-                    email: '',
-                    estadoCivil: ''
-                },
-                pacientes: [
-                    {
-                        nome: 'João de Barro',
-                        cpf: '02105403298',
-                        dataNascimento: '02/04/1990',
-                        telefone: '88996874527',
-                        endereco: 'Rua A, 170, São Vicente',
-                        cep: '63700-000',
-                        sexo: 'masculino',
-                        email: 'joaodebarro@gmail.com',
-                        estadoCivil: 'Solteiro'
-                    },
-                    {
-                        nome: 'Maria do Bairro',
-                        cpf: '54798745687',
-                        dataNascimento: '05/09/1993',
-                        telefone: '88995474147',
-                        endereco: 'Rua B, 20, Venâncios',
-                        cep: '63700-000',
-                        sexo: 'feminino',
-                        email: 'mariadebarro@gmail.com',
-                        estadoCivil: 'Solteiro'
-                    },
-                ]
-            },
+            // data: {
+            //     mostraTabela: false,
+            //     mostraPaciente: false,
+            //     usuario: {
+            //         nome: "Agatha Bhenares Alves Martins Rodrigues",
+            //         nomeusuario: "grakt"
+            //     },
+            //     paciente: {
+            //         nome: '',
+            //         cpf: '',
+            //         dataNascimento: '',
+            //         telefone: '',
+            //         endereco: '',
+            //         cep: '',
+            //         sexo: '',
+            //         email: '',
+            //         estadoCivil: ''
+            //     },
+            //     pacientes: [
+            //         {
+            //             nome: 'João de Barro',
+            //             cpf: '02105403298',
+            //             dataNascimento: '02/04/1990',
+            //             telefone: '88996874527',
+            //             endereco: 'Rua A, 170, São Vicente',
+            //             cep: '63700-000',
+            //             sexo: 'masculino',
+            //             email: 'joaodebarro@gmail.com',
+            //             estadoCivil: 'Solteiro'
+            //         },
+            //         {
+            //             nome: 'Maria do Bairro',
+            //             cpf: '54798745687',
+            //             dataNascimento: '05/09/1993',
+            //             telefone: '88995474147',
+            //             endereco: 'Rua B, 20, Venâncios',
+            //             cep: '63700-000',
+            //             sexo: 'feminino',
+            //             email: 'mariadebarro@gmail.com',
+            //             estadoCivil: 'Solteiro'
+            //         },
+            //     ]
+            // },
             methods: {
                 mostrarPacientes: function () {
                     this.mostraTabela = true;
@@ -167,7 +167,37 @@
                     }
                     this.paciente = paciente;
                 }
+
             }
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    url: "http://localhost:8080/grey-care-server/api/users",
+                    usuario: {},
+                    flag: false,
+                },
+                created() {
+                    var currentUrl = window.location.href;
+                    var id = new URL(currentUrl).searchParams.get("id");
+                    vm = this;
+                    axios.get(this.url + "/" + id).then(function (r) {
+                        vm.usuario = r.data;
+                        vm.flag = true;
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                methods: {
+                    deleteUser() {
+                        axios.delete(this.url + "/" + this.usuario.id).then(function (r) {
+                            console.log(r);
+                            window.location.replace('index.html')
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            });
         });
     </script>
 

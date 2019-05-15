@@ -10,9 +10,8 @@ public class User {
 	
 	private int id;
 	private String tipo;
-	private String user;
+	private String username;
 	private String senha;
-	private String confSenha;
 	private String nome;
 	private String crm;
 	private String telefone;
@@ -25,14 +24,13 @@ public class User {
 		
 	}
 	
-	public User(int id, String tipo, String user, String senha, String confSenha, String nome, String crm,
+	public User(int id, String tipo, String username, String senha, String nome, String crm,
 			String telefone, String especialidade, String email, String nascimento, String cpf) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
-		this.user = user;
+		this.username = username;
 		this.senha = senha;
-		this.confSenha = confSenha;
 		this.nome = nome;
 		this.crm = crm;
 		this.telefone = telefone;
@@ -58,12 +56,12 @@ public class User {
 		this.tipo = tipo;
 	}
 
-	public String getUser() {
-		return user;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getSenha() {
@@ -72,14 +70,6 @@ public class User {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public String getConfSenha() {
-		return confSenha;
-	}
-
-	public void setConfSenha(String confSenha) {
-		this.confSenha = confSenha;
 	}
 
 	public String getNome() {
@@ -141,8 +131,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", tipo=" + tipo + ", user=" + user + ", senha=" + senha + ", confSenha=" + confSenha
-				+ ", nome=" + nome + ", crm=" + crm + ", telefone=" + telefone + ", especialidade=" + especialidade
+		return "User [id=" + id + ", tipo=" + tipo + ", username=" + username + ", senha=" + senha +", nome=" + nome + ", crm=" + crm + ", telefone=" + telefone + ", especialidade=" + especialidade
 				+ ", email=" + email + ", nascimento=" + nascimento + ", cpf=" + cpf + "]";
 	}
 	

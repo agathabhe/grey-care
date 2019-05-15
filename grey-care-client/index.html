@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Home</title>
+    <title>Login</title>
 </head>
 
 <body>
@@ -59,6 +59,25 @@
                 }
             }
         });
+        var app = new Vue({
+                el: "#app",
+                data: {
+                    url: "http://localhost:8080/grey-care-server/api/users",
+                    usuarios: []
+                },
+                created() {
+                    vm = this;
+                    axios.get(this.url).then(function (r) {
+                        if(r.data.user.length > 1) {
+                            vm.usuarios = r.data.user;    
+                        } else {
+                            vm.usuarios = r.data;
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            });
     </script>
 </body>
 

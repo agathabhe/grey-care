@@ -44,7 +44,7 @@
                     <br><br>
                     <div v-show="usuario.tipo !== ''">
                         Nome de usuário*: <input type="text" class="form-control" name="user" id="user"
-                            v-model="usuario.user">
+                            v-model="usuario.username">
                         <div v-show="usuario.tipo === 'secretario'">
                             CPF*: <input type="text" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
                         </div>
@@ -87,11 +87,11 @@
         var ver = new Vue({
             el: "#ver",
             data: {
-                url: "http://localhost:8080/rest_persistence/api/users",
+                url: "http://localhost:8080/greycare-server/api/users",
                 errors: [],
                 usuario: {
                     tipo: "",
-                    user: null,
+                    username: null,
                     senha: null,
                     confSenha: null,
                     nome: null,
@@ -106,7 +106,7 @@
                 submit() {
                     let formData = new FormData();
                     formData.append('tipo', this.tipo);
-                    formData.append('user', this.user);
+                    formData.append('username', this.username);
                     formData.append('senha', this.senha);
                     formData.append('nome', this.nome);
                     formData.append('crm', this.crm);
@@ -128,7 +128,7 @@
                     }).catch(function (error) {
                         console.log(erro);
                     });
-                }
+                },
                 checkForm: function (e) {
                     this.errors = [];
 
@@ -140,7 +140,7 @@
                     } else if (!this.validEmail(this.usuario.email)) {
                         this.errors.push('Utilize um e-mail válido.');
                     }
-                    if (!this.usuario.user) {
+                    if (!this.usuario.username) {
                         this.errors.push('O nome de usuário é obrigatório.');
                     }
                     if (this.usuario.senha && this.usuario.senha.length !== 6) {
@@ -185,7 +185,7 @@
                 },
                 submit() {
                     let formData = new FormData();
-                    formData.append('user', this.usuario.user);
+                    formData.append('username', this.usuario.username);
                     formData.append('senha', this.usuario.senha);
                     formData.append('confSenha', this.usuario.confSenha);
                     formData.append('nome', this.usuario.nome);
@@ -204,7 +204,7 @@
                         }
                     ).then(function (r) {
                         console.log(r.data);
-                        window.location.replace("login.html");
+                        window.location.replace("index.html");
                     }).catch(function (error) {
                         console.log(erro);
                     });

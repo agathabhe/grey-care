@@ -41,21 +41,20 @@ public class UserService {
 	@GET
 	@Path("/search")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public User getUserByUsername(@QueryParam("user") String user) {
-		return UserDAO.getUserByUsername(user);
+	public User getUserByUsername(@QueryParam("username") String username) {
+		return UserDAO.getUserByUsername(username);
 	}
 
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)	
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 		public User addUser(@FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
-			@FormDataParam("user") String user, @FormDataParam("senha")String senha,
-	 		@FormDataParam("confSenha") String confSenha, @FormDataParam("crm")String crm,	
+			@FormDataParam("username") String username, @FormDataParam("senha")String senha, @FormDataParam("crm")String crm,	
 			@FormDataParam("telefone") String telefone, @FormDataParam("especialidade") String especialidade, 
 			@FormDataParam("email") String email, @FormDataParam("nascimento") String nascimento, 
 			@FormDataParam("cpf") String cpf) {
 
-		return UserDAO.addUser(nome, tipo, user, senha, confSenha, crm, telefone, especialidade, 
+		return UserDAO.addUser(nome, tipo, username, senha, crm, telefone, especialidade, 
 				email, nascimento, cpf);
 	}
 
@@ -64,14 +63,12 @@ public class UserService {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)	
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public User updateUser(@PathParam("id") int id, @FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
-			@FormDataParam("user") String user, @FormDataParam("senha") String senha,
-			@FormDataParam("confSenha") String confSenha, @FormDataParam("crm") String crm,	
+			@FormDataParam("username") String username, @FormDataParam("senha") String senha, @FormDataParam("crm") String crm,	
 			@FormDataParam("telefone") String telefone, @FormDataParam("especialidade") String especialidade, 
 			@FormDataParam("email") String email, @FormDataParam("nascimento") String nascimento, 
 			@FormDataParam("cpf") String cpf) {
 		
-		return UserDAO.updateUser(id, nome, tipo, user, senha, confSenha, crm, telefone, especialidade, 
-				email, nascimento, cpf);
+		return UserDAO.updateUser(id, nome, tipo, username, senha, crm, telefone, especialidade, email, nascimento, cpf);
 	}
 
 	@DELETE
