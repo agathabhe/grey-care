@@ -15,7 +15,6 @@
 </head>
 
 <body>
-    <p style="padding: 1px"></p>
     <div class="container text-center" id="minhadiv">
         <header class="container-fluid">
             <img src="Images/LogoGC.png" style="width:20%"></img>
@@ -24,9 +23,16 @@
         <br>
         <br>
         <div id="login" class="form-group" class="container-fluid">
-            Usuário: <input type="text" name="Usuário" style="width: 20%" v-model="usuario"><br><br>
-            Senha: &nbsp&nbsp<input type="password" class="password" name="Senha" style="width: 20%"
-                v-model="senha"><br><br>
+            <div class="input-group d-flex justify-content-center" style="margin-left: 38%">
+                <span class="input-group-addon" id="basic-addon1">Usuário:</span>
+                <input type="text" class="form-control" placeholder="Usuário" aria-describedby="basic-addon1" style="width:32%" v-model="usuario">
+            </div>
+            <br>
+            <div class="input-group d-flex justify-content-center" style="margin-left: 38%">
+                <span class="input-group-addon" id="basic-addon1">Senha: &nbsp;</span>
+                <input type="password" class="form-control" placeholder="Senha" aria-describedby="basic-addon1" style="width:32%" v-model="senha">
+            </div>
+            <br><br>            
             <button type="button" class="btn btn-secondary" value="Entrar" v-on:click="checarLogin(usuario, senha)"
                 id="in">Entrar</button>
             <a href="user-inserir.html" id="buttonLink"><button class="btn btn-secondary" type="button"
@@ -37,6 +43,7 @@
         <p style="padding: 1px"></p>
         <a href="user-editar.html" id="linkcolor">Recuperação de senha? Clique aqui!</a>
         <br>
+        <p></p>
     </div>
 
     </div>
