@@ -7,6 +7,8 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/vue-session.js"></script>
     <script src="js/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +26,13 @@
         </header>
         <br>
         <div id="login" class="form-group" class="container-fluid">
-            <input class="input-lg" type="text" placeholder="Usuário" name="usuario" style="width: 20%" v-model="usuario"><br><br>
-            <input class="input-lg" type="password" class="password" placeholder="Senha" name="Senha" style="width: 20%" v-model="senha"><br><br>
+            <input class="input-lg" type="text" placeholder="Usuário" name="usuario" style="width: 20%"
+                v-model="usuario"><br><br>
+            <input class="input-lg" type="password" class="password" placeholder="Senha" name="Senha" style="width: 20%"
+                v-model="senha"><br><br>
 
-            <button type="button" class="btn btn-secondary" value="Entrar" v-on:click="checarLogin()" id="in" type="submit">Entrar</button>
+            <button type="button" class="btn btn-secondary" value="Entrar" v-on:click="checarLogin()" id="in"
+                type="submit">Entrar</button>
             <a href="user-inserir.html" id="buttonLink"><button class="btn btn-secondary" type="button" id="new">Criar
                     conta</button></a>
         </div>
@@ -43,22 +48,36 @@
         var login = new Vue({
             el: "#login",
             data: {
-                url: "http://localhost:8080/greycare-server/api/users",
+                url: "http://localhost:8080/greycare-server/login",
                 array: ["Agatha", "123"],
                 usuario: "",
                 senha: "",
             },
+            created(){
+                if (this.$session.exists()) {
+                    location.href = "tela-principal.html";
+                }
+            },
             methods: {
                 checarLogin() {
                     vm = this;
-                    axios.get(this.url + "/search?username=" + this.usuario).then(function(r) {
-                        if (r.data.senha === vm.senha) {
-                            location.href = "tela-principal.html?id=" + r.data.id;
+                    axios.post(this.url, {
+                        username: vm.usuario,
+                        senha: vm.senha
+                    }).then(function (r) {
+                        if (r.status === 200) {
+                            vm.$session.start();
+                            vm.$session.set('user', JSON.stringify({
+                                username: vm.usuario,
+                                senha: vm.senha
+                            }));
+                            location.href = "tela-principal.html";
                         } else {
                             alert("Dados inválidos. Por favor, preencher o formulário novamente!");
                         }
-                    }).catch(function(error) {
+                    }).catch(function (error) {
                         console.log(error);
+                        alert("Dados inválidos. Por favor, preencher o formulário novamente!");
                     });
 
                 }

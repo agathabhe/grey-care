@@ -2,11 +2,11 @@
   <header id="mainheader">
     <p></p>
     <span id="cabecalho">
-      &nbsp; Seja bem vindo(a), {{nomeusuario.split(' ')[0]}}!
+      &nbsp; Seja bem vindo(a), {{nomeusuario}}!
       <span style="margin-left: 35%">
-      <a href="index.html" id="buttonLink">
-        <button class="btn btn-danger my-2 my-sm-6" type="button" id="sair">Sair</button>
-      </a>
+        <a href="#" @click="logout" id="buttonLink">
+          <button class="btn btn-danger my-2 my-sm-6" type="button" id="sair">Sair</button>
+        </a>
       </span>
     </span>
     <p style="margin-bottom: 15px"></p>
@@ -16,6 +16,12 @@
 <script>
 module.exports = {
   name: "barratitulo",
-  props: ["nomeusuario"]
+  props: ["nomeusuario"],
+  methods: {
+    logout: function() {
+      this.$session.destroy();
+      location.href = "index.html";
+    }
+  }
 };
 </script>
