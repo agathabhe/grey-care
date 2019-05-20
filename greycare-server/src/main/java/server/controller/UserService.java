@@ -48,28 +48,38 @@ public class UserService {
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public User addUser(@FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
+	public Response addUser(@FormDataParam("nome") String nome, @FormDataParam("tipo") String tipo,
 			@FormDataParam("username") String username, @FormDataParam("senha") String senha,
 			@FormDataParam("crm") String crm, @FormDataParam("telefone") String telefone,
 			@FormDataParam("especialidade") String especialidade, @FormDataParam("email") String email,
 			@FormDataParam("nascimento") String nascimento, @FormDataParam("cpf") String cpf) {
+		
+		if(nome == null|| tipo == null || username == null|| senha == null || crm == null || telefone == null || 
+				especialidade == null  || email == null || nascimento == null|| cpf == null) {
+			return Response.status(400).build();
+		}
 
-		return UserDAO.addUser(tipo, username, senha, nome, crm, telefone, especialidade, email, nascimento, cpf);
+		return Response.status(Status.OK).entity(UserDAO.addUser(tipo, username, senha, nome, crm, telefone, especialidade, email, nascimento, cpf)).build();
 	}
 
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public User updateUser(@PathParam("id") int id, @FormDataParam("nome") String nome,
+	public Response updateUser(@PathParam("id") int id, @FormDataParam("nome") String nome,
 			@FormDataParam("tipo") String tipo, @FormDataParam("username") String username,
 			@FormDataParam("senha") String senha, @FormDataParam("crm") String crm,
 			@FormDataParam("telefone") String telefone, @FormDataParam("especialidade") String especialidade,
 			@FormDataParam("email") String email, @FormDataParam("nascimento") String nascimento,
 			@FormDataParam("cpf") String cpf) {
 
-		return UserDAO.updateUser(id, nome, tipo, username, senha, crm, telefone, especialidade, email, nascimento,
-				cpf);
+		if(nome == null|| tipo == null || username == null|| senha == null || crm == null || telefone == null || 
+				especialidade == null  || email == null || nascimento == null|| cpf == null) {
+			return Response.status(400).build();
+		}
+
+		return Response.status(Status.OK).entity(UserDAO.updateUser(id, nome, tipo, username, senha, crm, telefone, especialidade, email, nascimento,
+				cpf)).build();
 	}
 
 	@DELETE

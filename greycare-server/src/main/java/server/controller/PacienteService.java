@@ -48,30 +48,41 @@ public class PacienteService {
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Paciente addPaciente(@FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf,
+	public Response addPaciente(@FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf,
 			@FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
 			@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco,
 			@FormDataParam("cep") String cep, @FormDataParam("email") String email,
 			@FormDataParam("alergias") String alergias, @FormDataParam("tipoSanguineo") String tipoSanguineo,
 			@FormDataParam("doador") String doador) {
+		
+		if(nome == null || cpf == null || nascimento == null || telefone == null || estadoCivil == null || endereco == null || cep == null || email == null || alergias == null || 
+				tipoSanguineo == null || doador == null ) {
+			return Response.status(400).build();
+		}
 
-		return PacienteDAO.addPaciente(nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email, alergias,
-				tipoSanguineo, doador);
+		return Response.status(Status.OK).entity(PacienteDAO.addPaciente(nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email, alergias,
+				tipoSanguineo, doador)).build();
 	}
 
 	@PUT
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Paciente updatePaciente(@PathParam("id") int id, @FormDataParam("nome") String nome,
+	public Response updatePaciente(@PathParam("id") int id, @FormDataParam("nome") String nome,
 			@FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento,
 			@FormDataParam("telefone") String telefone, @FormDataParam("estadoCivil") String estadoCivil,
 			@FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep,
 			@FormDataParam("email") String email, @FormDataParam("alergias") String alergias,
 			@FormDataParam("tipoSanguineo") String tipoSanguineo, @FormDataParam("doador") String doador) {
 
-		return PacienteDAO.updatePaciente(id, nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email,
-				alergias, tipoSanguineo, doador);
+		if(nome == null || cpf == null || nascimento == null || telefone == null || estadoCivil == null || endereco == null || cep == null || email == null || alergias == null || 
+				tipoSanguineo == null || doador == null ) {
+			return Response.status(400).build();
+		}
+		
+		return Response.status(Status.OK).entity(PacienteDAO.updatePaciente(id, nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email,
+				alergias, tipoSanguineo, doador)).build();
+		
 	}
 
 	@DELETE
