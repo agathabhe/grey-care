@@ -77,6 +77,12 @@ fieldset{
     border-color:  #44a5ae;
 }
 
+.input-group-addon {
+	background-color:  #44a5ae;
+	border: #02474e;
+	color: white;
+}
+
 .row.content {
 	position:absolute;
 	top:0;
