@@ -17,62 +17,69 @@
 
 <body>
     <div class="container" id="minhadiv">
-            <br>
-            <div class="row" style="height: 2px; margin-top: -1%">
-                <div class="col-xs-10 col-sm-7 col-md-9">
-                    <p id="cabecalho">Cadastro de Paciente</p>
-                </div>
-                <div class="col-xs-2 col-sm-3 col-md-3 text-right">
-                    <span class="content-fluid"><a href="login.html"><img src="Images/LogoGC.png" style="width: 25%; margin-top: -6%"></img></a></span>
-                </div>
+        <br>
+        <div class="row" style="height: 2px; margin-top: -1%">
+            <div class="col-xs-10 col-sm-7 col-md-9">
+                <p id="cabecalho">Cadastro de Paciente</p>
             </div>
-            <br><br>
+            <div class="col-xs-2 col-sm-3 col-md-3 text-right">
+                <span class="content-fluid"><a href="index.html"><img src="Images/LogoGC.png"
+                            style="width: 25%; margin-top: -6%"></img></a></span>
+            </div>
+        </div>
+        <br><br>
         <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px" id="ver">
             <div id="app">
+                <div class="alert alert-danger " role="alert" v-if="errors.length">
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                </div>
                 <p style="font-size: 25px">Dados Pessoais</p>
                 <div class="form-group">
 
-                    Nome completo*: <input class="form-control" type="text" name="nome" v-model="nome">
-                    CPF*: <input type="text" class="form-control" name="cpf" v-model="cpf"><br><br>
-                    Data de nascimento: <input type="date" class="form-control" name="nascimento" v-model="nascimento">
-                    Telefone*: <input type="text" name="telefone" class="form-control" v-model="telefone">
-                    Estado civil:   <select class="form-control" v-model="estadoCivil">
-                                        <option value="solteiro">Solteiro(a)</option>
-                                        <option value="casado">Casado(a)</option>
-                                    </select><br><br>
-                    Endereço*: <input  type="text" class="form-control" name="endereco" v-model="endereco">
-                    CEP*: <input type="number" class="form-control" name="cep" v-model="cep">
-                    Sexo*:  <select class="form-control" v-model="sexo">
-                                <option value="masculino">Masculino</option>
-                                <option value="feminino">Feminino</option>
-                            </select>
-                    Email*: <input type="email" class="form-control" name="email" v-model="email">
-                    <br><br>
-                    <p style="font-size: 25px">Dados Médicos</p>
-                    Alergias*:<br>
-                    <textarea name="alergias" class="form-control" v-model="alergias"></textarea><br>
-                    Tipo Sanguíneo: <select class="form-control" v-model="tipoSanguineo">
-                        <option value="1">A+</option>
-                        <option value="2">A-</option>
-                        <option value="2">B+</option>
-                        <option value="2">B-</option>
-                        <option value="2">AB+</option>
-                        <option value="3">AB-</option>
-                        <option value="4">O+</option>
-                        <option value="5">O-</option>
-                    </select>
-                    Doador de sangue?   <select class="form-control" v-model="doador">
-                                            <option value="sim">Sim</option>
-                                            <option value="nao">Não</option>
-                                        </select>
-                    <h6>(*) campos obrigatórios</h6>
-                    <br><br>
-                    <div class="btn-group-horizontal text-center">
-                        <a href="login.html" id="buttonLink"><button class="btn btn-secondary" type="button"
-                                id="cancel">Cancelar</button></a>
-                        <button class="btn btn-secondary" type="button" id="in" @click="submit">Salvar</button>
+                    <form @submit="checkForm" method="post">
+                        Nome completo*: <input class="form-control" type="text" name="nome" v-model="paciente.nome"> 
+                        CPF*:<input type="text" class="form-control" name="cpf" v-model="paciente.cpf"> 
+                        Data de nascimento: <input type="date" class="form-control" name="nascimento" v-model="paciente.nascimento"> 
+                        Telefone*: <input type="text" name="telefone" class="form-control" v-model="paciente.telefone"> 
+                        Estado civil: <select class="form-control" v-model="paciente.estadoCivil">
+                            <option value="solteiro">Solteiro(a)</option>
+                            <option value="casado">Casado(a)</option>
+                        </select> 
+                        Endereço*: <input type="text" class="form-control" name="endereco" v-model="paciente.endereco"> 
+                        CEP*: <input type="number" class="form-control" name="cep" v-model="paciente.cep"> 
+                        Sexo*: <select class="form-control" v-model="paciente.sexo">
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select> 
+                        Email*: <input type="email" class="form-control" name="email" v-model="paciente.email">
+                        <br>
+                        <p style="font-size: 25px">Dados Médicos</p>
+                        Alergias*:<textarea name="alergias" class="form-control" v-model="paciente.alergias"></textarea>
+                        Tipo Sanguíneo: <select class="form-control" v-model="paciente.tipoSanguineo">
+                            <option value="1">A+</option>
+                            <option value="2">A-</option>
+                            <option value="3">B+</option>
+                            <option value="4">B-</option>
+                            <option value="5">AB+</option>
+                            <option value="6">AB-</option>
+                            <option value="7">O+</option>
+                            <option value="8">O-</option>
+                        </select> 
+                        Doador de sangue? <select class="form-control" v-model="paciente.doador">
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                        <h6>(*) campos obrigatórios</h6>
+                        <br><br>
+                        <div class="btn-group-horizontal text-center">
+                            <a href="tela-principal.html?id={{idUser}}" id="buttonLink"><button
+                                    class="btn btn-secondary" type="button" id="cancel">Cancelar</button></a>
+                            <button class="btn btn-secondary" type="button" id="in" @click="checkForm()">Salvar</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
                 <br><br>
             </div>
         </div>
@@ -81,9 +88,12 @@
 
     <script>
         var app = new Vue({
-                el: "#app",
-                data: {
-                    url: "http://localhost:8080/grey-care-server/api/users",
+            el: " #app ",
+            data: {
+                url: "http://localhost:8080/greycare-server/api/pacientes ",
+                idUser: 0,
+                errors: [],
+                paciente: {
                     nome: null,
                     cpf: null,
                     nascimento: null,
@@ -96,38 +106,77 @@
                     alergias: null,
                     tipoSanguineo: null,
                     doador: null
-                },
-                methods: {
-                    submit() {
-                        let formData = new FormData();
-                        formData.append('nome', this.nome);
-                        formData.append('cpf', this.cpf);
-                        formData.append('nascimento', this.nascimento);
-                        formData.append('telefone', this.telefone);
-                        formData.append('estadoCivil', this.estadoCivil);
-                        formData.append('endereco', this.endereco);
-                        formData.append('cep', this.cep);
-                        formData.append('sexo', this.sexo);
-                        formData.append('email', this.email);
-                        formData.append('alergias', this.alergias);
-                        formData.append('tipoSanguineo', this.tipoSanguineo);
-                        formData.append('doador', this.doador);
-                        axios.post(this.url,
-                            formData,
-                            {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
+                }
+            },
+            created() {
+                var currentUrl = window.location.href;
+                var id = new URL(currentUrl).searchParams.get("id ");
+                this.idUser = id;
+            },
+            methods: {
+                submit() {
+                    let formData = new FormData();
+                    formData.append('nome', this.paciente.nome);
+                    formData.append('cpf', this.paciente.cpf);
+                    formData.append('nascimento', this.paciente.nascimento);
+                    formData.append('telefone', this.paciente.telefone);
+                    formData.append('estadoCivil', this.paciente.estadoCivil);
+                    formData.append('endereco', this.paciente.endereco);
+                    formData.append('cep', this.paciente.cep);
+                    formData.append('sexo', this.paciente.sexo);
+                    formData.append('email', this.paciente.email);
+                    formData.append('alergias', this.paciente.alergias);
+                    formData.append('tipoSanguineo', this.paciente.tipoSanguineo);
+                    formData.append('doador', this.paciente.doador);
+                    vm = this;
+                    axios.post(this.url,
+                        formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
                             }
-                        ).then(function (r) {
-                            console.log(r.data);
-                            window.location.replace("index.html");
-                        }).catch(function (error) {
-                            console.log(erro);
-                        });
+                        }
+                    ).then(function(r) {
+                        console.log(r.data);
+                        window.location.replace("tela-principal.html?id=" + vm.idUser);
+                    }).catch(function(error) {
+                        console.log(erro);
+                    });
+                },
+                checkForm: function(e) {
+                    this.errors = [];
+
+                    if (!this.paciente.nome) {
+                        this.errors.push('O nome é obrigatório.');
+                    }
+                    if (!this.paciente.cpf) {
+                        this.errors.push('O CPF é obrigatório.');
+                    }
+                    if (!this.paciente.nascimento) {
+                        this.errors.push('A data de nascimento é obrigatória.');
+                    }
+                    if (!this.paciente.telefone) {
+                        this.errors.push('O telefone é obrigatório.');
+                    }
+                    if (!this.paciente.endereco) {
+                        this.errors.push('O endereço é obrigatório.');
+                    }
+                    if (!this.paciente.sexo) {
+                        this.errors.push('O sexo é obrigatório.');
+                    }
+                    if (!this.paciente.alergias) {
+                        this.errors.push('Preencha com suas alergias.');
+                    }
+                    if (!this.paciente.doador) {
+                        this.errors.push('Não é doador? Se não, nos diga mesmo assim.');
+                    }
+                    if (!this.errors.length) {
+                        this.submit();
+                        alert('Paciente ' + this.paciente.nome + ' foi cadastrado com sucesso!');
+                        return true;
                     }
                 }
-            });
+            }
+        });
     </script>
 </body>
 

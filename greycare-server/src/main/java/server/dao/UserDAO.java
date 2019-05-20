@@ -19,8 +19,7 @@ public class UserDAO {
 			String telefone, String especialidade, String email, String nascimento, String cpf) {
 		try {
 			PreparedStatement pStmt = connection.prepareStatement(
-					"insert into users(nome, tipo, username, senha, crm, telefone, especialidade, \n"
-							+ "					email, nascimento, cpf) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					"insert into users(nome, tipo, username, senha, crm, telefone, especialidade,email, nascimento, cpf) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			pStmt.setString(1, nome);
 			pStmt.setString(2, tipo);

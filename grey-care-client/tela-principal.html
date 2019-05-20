@@ -3,14 +3,14 @@
 
 <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
     <script src="js/httpVueLoader.js"></script>
-    <!-- <script src="components/menu/menu.js"></script> -->
+    <script src="js/vue-router.js"></script>
+    <script src="js/axios.min.js"></script>
 
 
     <meta charset="UTF-8">
@@ -21,17 +21,20 @@
 </head>
 
 <body>
-    <div class="container-fluid" id="paginaInicial">
-        <div class="row no-gutter content">
+    <div class="container-fluid" id="app">
+        <div v-if="flag" class="row no-gutter content">
             <menusidebar></menusidebar>
             <div>
                 <barratitulo v-bind:nomeusuario="usuario.nome"></barratitulo>
                 <br>
             </div>
             <div class="row" v-show="mostraTabela" style="color: white">
-                <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&nbsp;
-                    Pacientes</p>
+                <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&nbsp; Pacientes
+                </p>
                 <div class="col-md-8">
+                    <!-- <a href="paciente-inserir.html"><button class="btn btn-primary" type="button">Cadastrar
+                            paciente</button></a>
+                    <br><br> -->
                     <table class="table" style="margin-left: 20px;">
                         <thead>
                             <tr>
@@ -52,8 +55,7 @@
                                 <td scope="row">{{paciente.telefone}}</td>
                                 <td scope="row">{{paciente.sexo}}</td>
                                 <td scope="row">{{paciente.email}}</td>
-                                <td scope="row"> <button type="button" class="btn btn-primary"
-                                        v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
+                                <td scope="row"> <button type="button" class="btn btn-primary" v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
                                 </td>
                                 <td scope="row">
                                     <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>
@@ -101,65 +103,49 @@
     <script>
         var MenuSidebar = httpVueLoader('./components/menu/menu.vue')
         var BarraTitulo = httpVueLoader('./components/barra-titulo/barra-titulo.vue')
-       
-        var paginaInicial = new Vue({
-            el: "#paginaInicial",
+        var app = new Vue({
+            el: "#app",
             components: {
                 menusidebar: MenuSidebar,
                 barratitulo: BarraTitulo,
-                
+
             },
-            // data: {
-            //     mostraTabela: false,
-            //     mostraPaciente: false,
-            //     usuario: {
-            //         nome: "Agatha Bhenares Alves Martins Rodrigues",
-            //         nomeusuario: "grakt"
-            //     },
-            //     paciente: {
-            //         nome: '',
-            //         cpf: '',
-            //         dataNascimento: '',
-            //         telefone: '',
-            //         endereco: '',
-            //         cep: '',
-            //         sexo: '',
-            //         email: '',
-            //         estadoCivil: ''
-            //     },
-            //     pacientes: [
-            //         {
-            //             nome: 'João de Barro',
-            //             cpf: '02105403298',
-            //             dataNascimento: '02/04/1990',
-            //             telefone: '88996874527',
-            //             endereco: 'Rua A, 170, São Vicente',
-            //             cep: '63700-000',
-            //             sexo: 'masculino',
-            //             email: 'joaodebarro@gmail.com',
-            //             estadoCivil: 'Solteiro'
-            //         },
-            //         {
-            //             nome: 'Maria do Bairro',
-            //             cpf: '54798745687',
-            //             dataNascimento: '05/09/1993',
-            //             telefone: '88995474147',
-            //             endereco: 'Rua B, 20, Venâncios',
-            //             cep: '63700-000',
-            //             sexo: 'feminino',
-            //             email: 'mariadebarro@gmail.com',
-            //             estadoCivil: 'Solteiro'
-            //         },
-            //     ]
-            // },
+            data: {
+                url: "http://localhost:8080/greycare-server/api/pacientes",
+                urlUsers: "http://localhost:8080/greycare-server/api/users",
+                paciente: {},
+                pacientes: [],
+                flag: false,
+                mostraTabela: true,
+                mostraPaciente: false,
+                usuario: {}
+            },
+            created() {
+                var currentUrl = window.location.href;
+                var id = new URL(currentUrl).searchParams.get("id");
+                vm = this;
+                axios.get(this.url).then(function(r) {
+                    vm.pacientes = r.data.paciente;
+                    console.log(r.data.paciente);
+                }).catch(function(error) {
+                    console.log(error);
+                });
+
+                axios.get(this.urlUsers + '/' + id).then(function(r) {
+                    vm.usuario = r.data;
+                    vm.flag = true;
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            },
             methods: {
-                mostrarPacientes: function () {
+                mostrarPacientes: function() {
                     this.mostraTabela = true;
                 },
-                escondePacientes: function () {
+                escondePacientes: function() {
                     this.mostraTabela = false;
                 },
-                mostrarPaciente: function (paciente) {
+                mostrarPaciente: function(paciente) {
                     if (this.mostraPaciente == true) {
                         this.mostraPaciente = false;
                     } else {
@@ -167,37 +153,7 @@
                     }
                     this.paciente = paciente;
                 }
-
-            }
-            var app = new Vue({
-                el: "#app",
-                data: {
-                    url: "http://localhost:8080/grey-care-server/api/users",
-                    usuario: {},
-                    flag: false,
-                },
-                created() {
-                    var currentUrl = window.location.href;
-                    var id = new URL(currentUrl).searchParams.get("id");
-                    vm = this;
-                    axios.get(this.url + "/" + id).then(function (r) {
-                        vm.usuario = r.data;
-                        vm.flag = true;
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                },
-                methods: {
-                    deleteUser() {
-                        axios.delete(this.url + "/" + this.usuario.id).then(function (r) {
-                            console.log(r);
-                            window.location.replace('index.html')
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
-                    }
-                }
-            });
+            },
         });
     </script>
 

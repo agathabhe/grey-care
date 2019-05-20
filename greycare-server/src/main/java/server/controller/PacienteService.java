@@ -1,6 +1,5 @@
 package server.controller;
 
-
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -24,57 +23,62 @@ import server.model.Paciente;
 
 @Path("/pacientes")
 public class PacienteService {
-	
-		@GET
-		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		public List<Paciente> getPacientes() {
-			return PacienteDAO.getAllPaciente();
-		}
 
-		// Controle da resposta (status code, mensagem)
-		@GET
-		@Path("/{id}")
-		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		public Response getPaciente(@PathParam("id") int id) {
-			return Response.status(Status.OK).entity(PacienteDAO.getPaciente(id)).build();
-		}
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<Paciente> getPacientes() {
+		return PacienteDAO.getAllPaciente();
+	}
 
-		@GET
-		@Path("/search")
-		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		public Paciente getPacienteByName(@QueryParam("nome") String nome) {
-			return PacienteDAO.getPacienteByName(nome);
-		}
+	// Controle da resposta (status code, mensagem)
+	@GET
+	@Path("/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getPaciente(@PathParam("id") int id) {
+		return Response.status(Status.OK).entity(PacienteDAO.getPaciente(id)).build();
+	}
 
-		@POST
-		@Consumes(MediaType.MULTIPART_FORM_DATA)
-		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		@Consumes(MediaType.MULTIPART_FORM_DATA)
-		public Paciente addPaciente(@FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
-				@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep ,@FormDataParam("email")  String email , 
-				@FormDataParam("alergias") String alergias,	@FormDataParam("tipoSanguineo") String tipoSanguineo, @FormDataParam("doador") String doador){
+	@GET
+	@Path("/search")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Paciente getPacienteByName(@QueryParam("nome") String nome) {
+		return PacienteDAO.getPacienteByName(nome);
+	}
 
-			return PacienteDAO.addPaciente(nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email, alergias, tipoSanguineo, doador);
-		}
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Paciente addPaciente(@FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf,
+			@FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
+			@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco,
+			@FormDataParam("cep") String cep, @FormDataParam("email") String email,
+			@FormDataParam("alergias") String alergias, @FormDataParam("tipoSanguineo") String tipoSanguineo,
+			@FormDataParam("doador") String doador) {
 
-		@PUT
-		@Path("/{id}")
-		@Consumes(MediaType.MULTIPART_FORM_DATA)
-		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		@Consumes(MediaType.MULTIPART_FORM_DATA)
-		public Paciente updatePaciente(@PathParam("id") int id, @FormDataParam("nome") String nome, @FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento, @FormDataParam("telefone") String telefone,
-				@FormDataParam("estadoCivil") String estadoCivil, @FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep ,@FormDataParam("email") String email , 
-				@FormDataParam("alergias") String alergias,	@FormDataParam("tipoSanguineo") String tipoSanguineo, @FormDataParam("doador") String doador) {
-			
-			return PacienteDAO.updatePaciente(id, nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email, alergias, tipoSanguineo, doador);
-		}
+		return PacienteDAO.addPaciente(nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email, alergias,
+				tipoSanguineo, doador);
+	}
 
-		@DELETE
-		@Path("/{id}")
-		@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-		public void deletePaciente(@PathParam("id") int id) {
-			PacienteDAO.deletePaciente(id);
-		}
-		
+	@PUT
+	@Path("/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Paciente updatePaciente(@PathParam("id") int id, @FormDataParam("nome") String nome,
+			@FormDataParam("cpf") String cpf, @FormDataParam("nascimento") String nascimento,
+			@FormDataParam("telefone") String telefone, @FormDataParam("estadoCivil") String estadoCivil,
+			@FormDataParam("endereco") String endereco, @FormDataParam("cep") String cep,
+			@FormDataParam("email") String email, @FormDataParam("alergias") String alergias,
+			@FormDataParam("tipoSanguineo") String tipoSanguineo, @FormDataParam("doador") String doador) {
+
+		return PacienteDAO.updatePaciente(id, nome, cpf, nascimento, telefone, estadoCivil, endereco, cep, email,
+				alergias, tipoSanguineo, doador);
+	}
+
+	@DELETE
+	@Path("/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public void deletePaciente(@PathParam("id") int id) {
+		PacienteDAO.deletePaciente(id);
+	}
 
 }

@@ -7,6 +7,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -22,21 +23,18 @@
             <h2 id="marginText">GreyCare</h2>
         </header>
         <br>
-        <br>
         <div id="login" class="form-group" class="container-fluid">
-            Usuário: <input type="text" name="Usuário" style="width: 20%" v-model="usuario"><br><br>
-            Senha: &nbsp&nbsp<input type="password" class="password" name="Senha" style="width: 20%"
-                v-model="senha"><br><br>
-            <button type="button" class="btn btn-secondary" value="Entrar" v-on:click="checarLogin(usuario, senha)"
-                id="in">Entrar</button>
-            <a href="user-inserir.html" id="buttonLink"><button class="btn btn-secondary" type="button"
-                    id="new">Criar conta</button></a>
+            <input class="input-lg" type="text" placeholder="Usuário" name="usuario" style="width: 20%" v-model="usuario"><br><br>
+            <input class="input-lg" type="password" class="password" placeholder="Senha" name="Senha" style="width: 20%" v-model="senha"><br><br>
+
+            <button type="button" class="btn btn-secondary" value="Entrar" v-on:click="checarLogin()" id="in" type="submit">Entrar</button>
+            <a href="user-inserir.html" id="buttonLink"><button class="btn btn-secondary" type="button" id="new">Criar
+                    conta</button></a>
         </div>
-        <br>
-        <p style="padding: 1px"></p>
-        <p style="padding: 1px"></p>
+
         <a href="user-editar.html" id="linkcolor">Recuperação de senha? Clique aqui!</a>
-        <br>
+        <br><br><br>
+
     </div>
 
     </div>
@@ -45,39 +43,27 @@
         var login = new Vue({
             el: "#login",
             data: {
+                url: "http://localhost:8080/greycare-server/api/users",
                 array: ["Agatha", "123"],
                 usuario: "",
                 senha: "",
             },
             methods: {
-                checarLogin(str, str1) {
-                    if (this.array[0] == str && this.array[1] == str1) {
-                        location.href = "tela-principal.html";
-                    } else {
-                        alert("Dados inválidos. Por favor, preencher o formulário novamente!");
-                    } 
+                checarLogin() {
+                    vm = this;
+                    axios.get(this.url + "/search?username=" + this.usuario).then(function(r) {
+                        if (r.data.senha === vm.senha) {
+                            location.href = "tela-principal.html?id=" + r.data.id;
+                        } else {
+                            alert("Dados inválidos. Por favor, preencher o formulário novamente!");
+                        }
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+
                 }
             }
         });
-        var app = new Vue({
-                el: "#app",
-                data: {
-                    url: "http://localhost:8080/grey-care-server/api/users",
-                    usuarios: []
-                },
-                created() {
-                    vm = this;
-                    axios.get(this.url).then(function (r) {
-                        if(r.data.user.length > 1) {
-                            vm.usuarios = r.data.user;    
-                        } else {
-                            vm.usuarios = r.data;
-                        }
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                }
-            });
     </script>
 </body>
 

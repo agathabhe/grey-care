@@ -26,55 +26,42 @@
                 </span>
             </div>
         </div>
-        <div class="container-fluid"
-            style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
+        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
             <p style="font-size: 25px">Dados cadastrais</p>
             <div class="alert alert-danger " role="alert" v-if="errors.length">
                 <ul>
                     <li v-for="error in errors">{{ error }}</li>
                 </ul>
             </div>
-            <form @submit="checkForm" action="index.html" method="post">
+            <form @submit="checkForm" method="post">
                 <div class="radio">
                     Tipo de conta*: &nbsp
-                    <label><input type="radio" name="option" v-model="usuario.tipo" value="medico">Médico(a)</label>
-                    &nbsp&nbsp&nbsp
+                    <label><input type="radio" name="option" v-model="usuario.tipo" value="medico">Médico(a)</label> &nbsp&nbsp&nbsp
                     <label><input type="radio" name="option" v-model="usuario.tipo"
                             value="secretario">Secretário(a)</label>
                     <br><br>
                     <div v-show="usuario.tipo !== ''">
-                        Nome de usuário*: <input type="text" class="form-control" name="user" id="user"
-                            v-model="usuario.username">
+                        Nome de usuário*: <input type="text" placeholder="Digite seu nome de usuário" class="form-control" name="username" id="username" v-model="usuario.username">
                         <div v-show="usuario.tipo === 'secretario'">
-                            CPF*: <input type="text" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
+                            CPF*: <input type="text" placeholder="Use apenas números" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
                         </div>
                         <div v-show="usuario.tipo === 'medico'" id="medico">
-                            CRM*: <input type="text" class="form-control" name="crm" id="crm" v-model="usuario.crm">
-                            Especialidade*: <input type="text" class="form-control" name="especialidade" id="esp"
-                                v-model="usuario.especialidade">
+                            CRM*: <input type="text" placeholder="Digite seu CRM" class="form-control" name="crm" id="crm" v-model="usuario.crm"> Especialidade*: <input type="text" placeholder="Digite sua especialidade" class="form-control" name="especialidade"
+                                id="esp" v-model="usuario.especialidade">
                         </div>
-                        Senha*: <input type="password" class="form-control" name="senha" id="senha"
-                            v-model="usuario.senha">
-                        Confirmar senha*: <input type="password" class="form-control" name="confsenha" id="confsenha"
-                            v-model="usuario.confSenha">
-                        Email*: <input type="email" class="form-control" name="email" id="email"
-                            v-model="usuario.email">
-
-                        <br>
+                        Senha*: <input type="password" placeholder="Sua senha deve conter 6 caracteres" class="form-control" name="senha" id="senha" v-model="usuario.senha"> Confirmar senha*:
+                        <input type="password" class="form-control" placeholder="Digite sua senha novamente" name="confsenha" id="confsenha" v-model="usuario.confSenha"> Email*: <input type="email" class="form-control" placeholder="Digite seu email" name="email"
+                            id="email" v-model="usuario.email">
                         <p style="font-size: 25px">Dados pessoais</p>
-                        Nome completo*: <input type="text" class="form-control" name="nome" id="nome"
-                            v-model="usuario.nome">
-                        Telefone*: <input type="text" class="form-control" name="telefone" id="telefone"
-                            v-model="usuario.telefone">
-                        Data de nascimento: <input type="date" class="form-control" name="nascimento" id="nascimento"
-                            v-model="usuario.nascimento">
+                        Nome completo*: <input type="text" class="form-control" placeholder="Digite seu nome completo" ame="nome" id="nome" v-model="usuario.nome"> Telefone*: <input type="text" class="form-control" placeholder="Use apenas números" name="telefone"
+                            id="telefone" v-model="usuario.telefone"> Data de nascimento:<input type="date" class="form-control" name="nascimento" id="nascimento" v-model="usuario.nascimento">
                         <br>
                     </div>
                     <h6>(*) campos obrigatórios</h6>
                     <div class="btn-group-horizontal text-center">
                         <a href="index.html" id="buttonLink"><button class="btn btn-danger" type="button"
                                 id="cancel">Cancelar</button></a>
-                        <button class="btn btn-secondary" type="submit" id="in" @click="submit">Salvar</button>
+                        <button class="btn btn-secondary" type="button" id="in" @click="checkForm()">Salvar</button>
                     </div>
                     <br>
                 </div>
@@ -102,34 +89,9 @@
                     nascimento: null,
                     cpf: null
                 }
-            }, methods: {
-                submit() {
-                    let formData = new FormData();
-                    formData.append('tipo', this.tipo);
-                    formData.append('username', this.username);
-                    formData.append('senha', this.senha);
-                    formData.append('nome', this.nome);
-                    formData.append('crm', this.crm);
-                    formData.append('telefone', this.telefone);
-                    formData.append('especialidade', this.especialidade);
-                    formData.append('email', this.email);
-                    formData.append('nascimento', this.nascimento);
-                    formData.append('cpf', this.cpf);
-                    axios.post(this.url,
-                        formData,
-                        {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }
-                    ).then(function (r) {
-                        console.log(r.data);
-                        window.location.replace("index.html");
-                    }).catch(function (error) {
-                        console.log(erro);
-                    });
-                },
-                checkForm: function (e) {
+            },
+            methods: {
+                checkForm: function(e) {
                     this.errors = [];
 
                     if (!this.usuario.nome) {
@@ -173,21 +135,22 @@
                     }
 
                     if (!this.errors.length) {
+                        this.submit();
                         alert('Usuário ' + this.usuario.tipo + ' foi cadastrado com sucesso!');
                         return true;
                     }
 
-                    e.preventDefault();
+                    //e.preventDefault();
                 },
-                validEmail: function (email) {
+                validEmail: function(email) {
                     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     return re.test(email);
                 },
                 submit() {
                     let formData = new FormData();
+                    formData.append('tipo', this.usuario.tipo);
                     formData.append('username', this.usuario.username);
                     formData.append('senha', this.usuario.senha);
-                    formData.append('confSenha', this.usuario.confSenha);
                     formData.append('nome', this.usuario.nome);
                     formData.append('crm', this.usuario.crm);
                     formData.append('telefone', this.usuario.telefone);
@@ -196,25 +159,20 @@
                     formData.append('nascimento', this.usuario.nascimento);
                     formData.append('cpf', this.usuario.cpf);
                     axios.post(this.url,
-                        formData,
-                        {
+                        formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
                         }
-                    ).then(function (r) {
+                    ).then(function(r) {
                         console.log(r.data);
                         window.location.replace("index.html");
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         console.log(erro);
                     });
-                },
-                handleFileUpload() {
-                    this.file = this.$refs.file.files[0];
                 }
             }
         });
-
     </script>
 </body>
 
