@@ -35,26 +35,57 @@
             </div>
             <form @submit="checkForm" method="post">
                 <div class="radio">
-                    Tipo de conta*: &nbsp
+                    Tipo de conta*: &nbsp;
                     <label><input type="radio" name="option" v-model="usuario.tipo" value="medico">Médico(a)</label> &nbsp&nbsp&nbsp
                     <label><input type="radio" name="option" v-model="usuario.tipo"
                             value="secretario">Secretário(a)</label>
                     <br><br>
                     <div v-show="usuario.tipo !== ''">
-                        Nome de usuário*: <input type="text" placeholder="Digite seu nome de usuário" class="form-control" name="username" id="username" v-model="usuario.username">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Nome de usuário*:</span>
+                            <input type="text" placeholder="Digite seu nome de usuário" class="form-control" name="username" id="username" v-model="usuario.username">
+                        </div><br>
                         <div v-show="usuario.tipo === 'secretario'">
-                            CPF*: <input type="text" placeholder="Use apenas números" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">CPF*:</span>
+                                <input type="text" placeholder="Use apenas números" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
+                            </div><br>
                         </div>
                         <div v-show="usuario.tipo === 'medico'" id="medico">
-                            CRM*: <input type="text" placeholder="Digite seu CRM" class="form-control" name="crm" id="crm" v-model="usuario.crm"> Especialidade*: <input type="text" placeholder="Digite sua especialidade" class="form-control" name="especialidade"
-                                id="esp" v-model="usuario.especialidade">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">CRM*:</span>
+                                <input type="text" placeholder="Digite seu CRM" class="form-control" name="crm" id="crm" v-model="usuario.crm">
+                            </div><br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Especialidade*:</span>
+                                <input type="text" placeholder="Digite sua especialidade" class="form-control" name="especialidade"id="esp" v-model="usuario.especialidade">
+                            </div><br>
                         </div>
-                        Senha*: <input type="password" placeholder="Sua senha deve conter 6 caracteres" class="form-control" name="senha" id="senha" v-model="usuario.senha"> Confirmar senha*:
-                        <input type="password" class="form-control" placeholder="Digite sua senha novamente" name="confsenha" id="confsenha" v-model="usuario.confSenha"> Email*: <input type="email" class="form-control" placeholder="Digite seu email" name="email"
-                            id="email" v-model="usuario.email">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Senha*:</span>
+                            <input type="password" placeholder="Sua senha deve conter 6 caracteres" class="form-control" name="senha" id="senha" v-model="usuario.senha"> 
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Confirmar senha*:</span>
+                            <input type="password" class="form-control" placeholder="Digite sua senha novamente" name="confsenha" id="confsenha" v-model="usuario.confSenha"> 
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Email*:</span>
+                            <input type="email" class="form-control" placeholder="Digite seu email" name="email"id="email" v-model="usuario.email">
+                        </div><br>
                         <p style="font-size: 25px">Dados pessoais</p>
-                        Nome completo*: <input type="text" class="form-control" placeholder="Digite seu nome completo" ame="nome" id="nome" v-model="usuario.nome"> Telefone*: <input type="text" class="form-control" placeholder="Use apenas números" name="telefone"
-                            id="telefone" v-model="usuario.telefone"> Data de nascimento:<input type="date" class="form-control" name="nascimento" id="nascimento" v-model="usuario.nascimento">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Nome completo*:</span>
+                            <input type="text" class="form-control" placeholder="Digite seu nome completo" ame="nome" id="nome" v-model="usuario.nome"> 
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Telefone*:</span>
+                            <input type="text" class="form-control" placeholder="Use apenas números" name="telefone" id="telefone" v-model="usuario.telefone">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Data de nascimento:</span>
+                            <input type="date" class="form-control" name="nascimento" id="nascimento" v-model="usuario.nascimento">
+                        </div><br>
                         <br>
                     </div>
                     <h6>(*) campos obrigatórios</h6>
@@ -67,6 +98,7 @@
                 </div>
         </div>
         </form>
+        <br>
     </div>
     <br>
     </div>
