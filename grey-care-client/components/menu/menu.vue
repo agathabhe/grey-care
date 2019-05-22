@@ -1,6 +1,7 @@
 <template id="menu">
     <nav class="col-sm-3 sidenav" style="padding-right: 1%">
-        <img src="Images/LogoGC.png" style="margin-left: 3.5%; width: 25%; margin-top: 1%"></img>
+        <div style="margin-left: 3%"><h2>Menu</h2></div> 
+        <hr>
             <ul class="nav nav-pills nav-stacked" style="margin-left: 3%; margin-top: 9%">
                 <li class="active"><a href="#" id="linkcolor" v-on:click="escondePacientes()">Página Inicial</a>
                 </li>
