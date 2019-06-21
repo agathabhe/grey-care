@@ -7,19 +7,14 @@
 
 body{
     background-color: #02474e;
-	color: white;
+    color: #44a5ae;
 	font-family:Lao UI;font-size:18px;
 }
-input{
-	color: black;
-}
- select{
-	color: black;
- }
 
 #minhadiv{
-	position:relative;
-	top:14px;
+	position:absolute;
+	top:2%;
+	left:1%;
 	z-index:11;
 	background-color:#02474e;
 	width:98%;
@@ -31,6 +26,16 @@ input{
 
 #cabecalho{
 	font-size: 32px;
+}
+
+.table-wrapper-scroll-y {
+display: block;
+}
+
+.my-custom-scrollbar {
+position: relative;
+height: 450px;
+overflow: auto;
 }
 
 #salvar,#in{
@@ -77,12 +82,6 @@ fieldset{
     border-color:  #44a5ae;
 }
 
-.input-group-addon {
-	background-color:  #44a5ae;
-	border: #02474e;
-	color: white;
-}
-
 .row.content {
 	position:absolute;
 	top:0;
@@ -95,13 +94,9 @@ fieldset{
 	filter: alpha(opacity=100);
 }
 
-.sidenav { 
-	background-color: #44a5ae ;
-	height: 100%;
-  	position: fixed;
-  	z-index: 1;
-  	top: 0;
-  	left: 0;
+.sidenav {
+    background-color: #44a5ae;
+    height: 100%;
 }
 
 #navbarcomponents{
@@ -156,14 +151,38 @@ fieldset{
   padding-right: 0;
   padding-left: 0;
 }
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
-html { overflow-x: hidden; }
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
 
-.table-borderless > tbody > tr > td,
-.table-borderless > tbody > tr > th,
-.table-borderless > tfoot > tr > td,
-.table-borderless > tfoot > tr > th,
-.table-borderless > thead > tr > td,
-.table-borderless > thead > tr > th {
-    border: none;
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
