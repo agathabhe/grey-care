@@ -3,86 +3,177 @@
 
 <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/httpVueLoader.js"></script>
     <script src="js/vue-router.js"></script>
     <script src="js/vue-session.js"></script>
     <script src="js/axios.min.js"></script>
+
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Login</title>
+    <title>GreyCare</title>
 </head>
 
 <body>
-    <div class="container text-center" id="minhadiv">
-        <header class="container-fluid">
-            <img src="Images/LogoGC.png" style="width:20%"></img>
-            <h2 id="marginText">GreyCare</h2>
-        </header>
-        <br>
-        <div id="login" class="form-group" class="container-fluid">
-            <input class="input-lg" type="text" placeholder="Usuário" name="usuario" style="width: 23.6%"
-                v-model="usuario"><br><br>
-            <input class="input-lg" type="password" class="password" placeholder="Senha" name="Senha" style="width: 23.6%"
-                v-model="senha"><br><br>
+    <div class="container-fluid" id="app">
 
-            <button type="button" class="btn btn-secondary" value="Entrar" v-on:click="checarLogin()" id="in"
-                type="submit">Entrar</button>
-            <a href="user-inserir.html" id="buttonLink"><button class="btn btn-secondary" type="button" id="new">Criar
-                    conta</button></a>
+        <div v-if="flag" class="row no-gutter content">
+            <menusidebar></menusidebar>
+            <div>
+                <barratitulo v-bind:nomeusuario="usuario.username"></barratitulo>
+                <br>
+            </div>
+            <div v-show="mostraTabela && usuario.tipo === 'secretario'" style="color: white">
+                <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&nbsp; Pacientes
+                </p>
+                <div class="col-md-9 col-sm-4 table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+                    <table class="table" style="margin-left: 5%; width:90%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">CPF</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">E-mail</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="paciente in pacientes">
+                                <td scope="row">{{paciente.nome}}</td>
+                                <td scope="row">{{paciente.cpf}}</td>
+                                <td scope="row">{{paciente.telefone}}</td>
+                                <td scope="row">{{paciente.email}}</td>
+                                <td scope="row"> <button type="button" class="btn btn-primary" id="myBtn"
+                                        v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
+                                </td>
+                                <td scope="row">
+                                    <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                                </td>
+                                <td scope="row"> <button type="button" class="btn btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                </div>
+
+            </div>
+            <!-- Definir o Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Conteúdo do Modal -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Informações de Paciente</h2>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr></tr>
+                                <td>Nome: {{paciente.nome}}</td>
+                                <td>CPF: {{paciente.cpf}}</td>
+                                <td colspan="2">Data de Nascimento: {{paciente.dataNascimento}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">Telefone: {{paciente.telefone}}</td>
+                                    <td colspan="1">Endereço: {{paciente.endereco}}</td>
+                                    <td>CEP: {{paciente.cep}}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-mail: {{paciente.email}}</td>
+                                    <td>Estado Civil: {{paciente.estadoCivil}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br><br>
-        <a href="user-editar.html" id="linkcolor">Recuperação de senha? Clique aqui!</a>
-        <br><br>
-
-    </div>
-
     </div>
 
     <script>
-        var login = new Vue({
-            el: "#login",
-            data: {
-                url: "http://localhost:8080/greycare-server/login",
-                array: ["Agatha", "123"],
-                usuario: "",
-                senha: "",
+        var MenuSidebar = httpVueLoader('./components/menu/menu.vue')
+        var BarraTitulo = httpVueLoader('./components/barra-titulo/barra-titulo.vue')
+        var app = new Vue({
+            el: "#app",
+            components: {
+                menusidebar: MenuSidebar,
+                barratitulo: BarraTitulo,
+
             },
-            created(){
-                if (this.$session.exists()) {
-                    location.href = "tela-principal.html";
+            data: {
+                url: "http://localhost:8080/api/pacientes",
+                urlUsers: "http://localhost:8080/api/users",
+                paciente: {},
+                pacientes: [],
+                flag: false,
+                mostraTabela: true,
+                mostraPaciente: false,
+                usuario: {},
+                flagSair: false,
+                flagLogin: true
+            },
+            created() {
+                if (!this.$session.exists()) {
+                    location.href = "index.html";
+                } else {
+                    this.usuario = JSON.parse(this.$session.get('user'));
+                    this.flag = true;
                 }
+
+                vm = this;
+                axios.get(this.url).then(function (r) {
+                    vm.pacientes = r.data;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+
+
             },
             methods: {
-                checarLogin() {
-                    vm = this;
-                    axios.post(this.url, {
-                        username: vm.usuario,
-                        senha: vm.senha
-                    }).then(function (r) {
-                        if (r.status === 200) {
-                            vm.$session.start();
-                            vm.$session.set('user', JSON.stringify({
-                                username: vm.usuario,
-                                senha: vm.senha
-                            }));
-                            location.href = "tela-principal.html";
-                        } else {
-                            alert("Dados inválidos. Por favor, preencher o formulário novamente!");
-                        }
-                    }).catch(function (error) {
-                        console.log(error);
-                        alert("Dados inválidos. Por favor, preencher o formulário novamente!");
-                    });
+                mostrarPacientes: function () {
+                    this.mostraTabela = true;
+                },
+                escondePacientes: function () {
+                    this.mostraTabela = false;
+                },
+                mostrarPaciente: function (paciente) {
+                    this.paciente = paciente;
+                    //Recebe o Modal
+                    var modal = document.getElementById("myModal");
 
+                    //Recebe a tag span que fecha o Modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    modal.style.display = "block";
+
+                    //Fecha o Modal ao clicar no x
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    //Quando clicar em qualquer lugar fora do Modal ele é fechado
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
                 }
-            }
+            },
         });
     </script>
+
 </body>
 
 </html>

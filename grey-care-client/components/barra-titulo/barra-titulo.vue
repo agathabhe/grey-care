@@ -18,7 +18,7 @@ module.exports = {
   methods: {
     logout: function() {
       this.$session.destroy();
-      location.href = "index.html";
+      location.href = "login.html";
     }
   }
 };

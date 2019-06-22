@@ -123,8 +123,18 @@
             },
             created() {
                 if (!this.$session.exists()) {
-                    location.href = "index.html";
+                    location.href = "login.html";
                 }
+                var currentUrl = window.location.href;
+                var id = new URL(currentUrl).searchParams.get("id");
+                vm = this;
+                axios.get(this.url + "/" + id).then(function (r) {
+                    vm.paciente = r.data;
+                    console.log(vm.paciente);
+                    vm.flag = true;
+                }).catch(function (error) {
+                    console.log(error);
+                });
             },
             methods: {
                 submit() {
@@ -141,7 +151,7 @@
                     formData.append('tipoSanguineo', this.paciente.tipoSanguineo);
                     formData.append('doador', this.paciente.doador);
                     vm = this;
-                    axios.post(this.url,
+                    axios.put(this.url,
                         formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -149,7 +159,7 @@
                         }
                     ).then(function (r) {
                         console.log(r.data);
-                        window.location.replace("index.html?id=" + vm.idUser);
+                        window.location.replace("login.html?id=" + vm.idUser);
                     }).catch(function (error) {
                         console.log(erro);
                     });
