@@ -153,6 +153,11 @@
                             this.errors.push('A especialidade é obrigatória.');
                         }
                     }
+                    if (this.usuario.tipo === 'secretario') {
+                        if (!this.usuario.cpf) {
+                            this.errors.push('O CPF é obrigatório.');
+                        }
+                    }
                     if (!this.usuario.telefone) {
                         this.errors.push('O telefone é obrigatório.');
                     }
@@ -160,11 +165,7 @@
                         this.errors.push('A data de nascimento é obrigatória.');
                     }
 
-                    if (this.usuario.tipo === 'secretario') {
-                        if (!this.usuario.cpf) {
-                            this.errors.push('O CPF é obrigatório.');
-                        }
-                    }
+                    
 
                     if (!this.errors.length) {
                         this.submit();
