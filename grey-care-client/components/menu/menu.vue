@@ -7,9 +7,14 @@
                 </li>
                 <li class="active"><a href="paciente-inserir.html" id="linkcolor" v-on:click="mostrarPacientes()">Cadastrar Paciente</a></li>
                 <li class="active"><a href="consulta-inserir.html" id="linkcolor" v-on:click="mostrarPacientes()">Cadastrar Consulta</a></li>
-    
-                
+                                    
+                  
+                  <span style="margin-left: 2%"><a class="user-editar.html" id="linkcolor"><img src="../../Images/gears.png"
+                        style="width:30px; height: 30px"></img>Alterar meus dados</a>
+                </span>              
             </ul>
+            
+
     </nav>
 </template>
 
