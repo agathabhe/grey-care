@@ -40,30 +40,57 @@
                 <div class="form-group">
 
                     <form @submit="checkForm" method="post">
-                        Nome completo*:<input class="form-control" placeholder="Digite seu nome completo" type="text"
-                            aria-describedby="basic-addon1" v-model="paciente.nome">
-
-                        CPF*:<input type="text" class="form-control" placeholder="Use apenas números"
-                            aria-describedby="basic-addon1" v-model="paciente.cpf">
-
-                        Data de nascimento:<input type="date" class="form-control" aria-describedby="basic-addon1"
-                            v-model="paciente.nascimento">
-                        Telefone*:<input type="text" placeholder="Use apenas números" aria-describedby="basic-addon1"
-                            class="form-control" v-model="paciente.telefone">
-                        Estado civil:<select class="form-control" aria-describedby="basic-addon1"
-                            v-model="paciente.estadoCivil">
-                            <option value="solteiro">Solteiro(a)</option>
-                            <option value="casado">Casado(a)</option>
-                        </select>
-
-                        Endereço*: <input type="text" placeholder="Digite seu endereço" class="form-control"
-                            aria-describedby="basic-addon1" v-model="paciente.endereco">
-                        CEP*:<input type="number" placeholder="Use apenas números" class="form-control"
-                            aria-describedby="basic-addon1" v-model="paciente.cep">
-                        Email*:<input type="email" placeholder="Digite seu email" class="form-control" name="email"
-                            v-model="paciente.email">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Nome completo*:</span>
+                            <input type="text" placeholder="Digite seu nome completo" class="form-control" name="nome"
+                                id="nome" v-model="paciente.nome">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">CPF*:</span>
+                            <input type="text" placeholder="Use apenas números" class="form-control" name="cpf" id="cpf"
+                                v-model="paciente.cpf">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Data de nascimento:</span>
+                            <input type="date" class="form-control" name="nascimento" id="nascimento"
+                                v-model="paciente.nascimento">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Telefone*:</span>
+                            <input type="text" class="form-control" placeholder="Use apenas números" name="telefone"
+                                id="telefone" v-model="paciente.telefone">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Estado Civil</span>
+                            <select class="form-control" name="estadoCivil" id="estadoCivil"
+                                v-model="paciente.estadoCivil">
+                                <option value="solteiro">Solteiro(a)</option>
+                                <option value="casado">Casado(a)</option>
+                            </select>
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Endereço*:</span>
+                            <input type="text" class="form-control" placeholder="Digite seu endereço" name="endereco"
+                                id="endereco" v-model="paciente.endereco">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">CEP*:</span>
+                            <input type="text" class="form-control" placeholder="Use apenas números" name="cep" id="cep"
+                                v-model="paciente.cep">
+                        </div><br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Email*:</span>
+                            <input type="text" class="form-control" placeholder="Digite seu email" name="email"
+                                id="email" v-model="paciente.email">
+                        </div><br>
 
                         <p style="font-size: 25px">Dados Médicos</p>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Alergias*:</span>
+                            <textarea class="form-control" placeholder="Digite aqui suas alergias" name="alergias"
+                                id="alergias" v-model="paciente.alergias">
+                            </textarea>
+                        </div><br>
 
                         Alergias*: <textarea name="alergias" placeholder="Digite aqui suas alergias"
                             class="form-control" v-model="paciente.alergias"></textarea>
@@ -104,7 +131,7 @@
         var app = new Vue({
             el: " #app ",
             data: {
-                url: "http://localhost:8080/api/pacientes ",
+                url: "http://localhost:8080/api/pacientes",
                 idUser: 0,
                 errors: [],
                 paciente: {

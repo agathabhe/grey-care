@@ -147,6 +147,23 @@
                 });
             },
             methods: {
+                getUsuarios: function () {
+                    vm = this;
+                    axios.get(this.url).then(function (r) {
+                        vm.users = r.data;
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                apagarUsuario: function (paciente) {
+                    vm = this;
+                    axios.delete('http://localhost:8080/api/users/' + usuario.id)
+                        .then(function (response) {
+                            vm.getUsers();
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                },
                 checkForm: function (e) {
                     this.errors = [];
 
