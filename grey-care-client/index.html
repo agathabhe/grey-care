@@ -35,9 +35,10 @@
                 <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&nbsp; Pacientes
                 </p>
 
-                <input class="input-lg" type="text" placeholder="Pesquisar" name="nome"
-                    style="width: 23.6; color: black" v-model="busca"> <button type="button" class="btn btn-primary"
-                    value="Buscar" v-on:click="buscar()" id="buscar">Buscar</button>
+                <input class="input-lg col-md-7" type="text" placeholder="Pesquisar" name="nome"
+                    style="width: 22; color: black; margin-left: 4%;" v-model="busca"> 
+                    <button type="button" class="btn btn-primary" value="Buscar" v-on:click="buscar()" id="buscar">Buscar</button>
+                    <br> <br>
                 <div class="col-md-9 col-sm-4 table-wrapper-scroll-y my-custom-scrollbar table-responsive">
                     <table class="table" style="margin-left: 5%; width:90%">
                         <thead class="thead-dark">
