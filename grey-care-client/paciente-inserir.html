@@ -190,7 +190,7 @@
                     if (!this.paciente.nome) {
                         this.errors.push('O nome é obrigatório.');
                     }
-                    if (!this.paciente.cpf) {
+                    if (!this.paciente.cpf && this.paciente.cpf.length != 11) {
                         this.errors.push('O CPF é obrigatório.');
                     }
                     if (!this.paciente.nascimento) {

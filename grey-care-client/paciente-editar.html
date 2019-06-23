@@ -92,25 +92,28 @@
                             </textarea>
                         </div><br>
 
-                        Alergias*: <textarea name="alergias" placeholder="Digite aqui suas alergias"
-                            class="form-control" v-model="paciente.alergias"></textarea>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Tipo Sanguíneo:</span>
+                            <select class="form-control" name="tipoSanguineo" id="tipoSanguineo"
+                                v-model="paciente.tipoSanguineo">
+                                <option value="1">A+</option>
+                                <option value="2">A-</option>
+                                <option value="3">B+</option>
+                                <option value="4">B-</option>
+                                <option value="5">AB+</option>
+                                <option value="6">AB-</option>
+                                <option value="7">O+</option>
+                                <option value="8">O-</option>
+                            </select>
+                        </div><br>
 
-                        Tipo Sanguíneo:<select class="form-control" v-model="paciente.tipoSanguineo">
-                            <option value="1">A+</option>
-                            <option value="2">A-</option>
-                            <option value="3">B+</option>
-                            <option value="4">B-</option>
-                            <option value="5">AB+</option>
-                            <option value="6">AB-</option>
-                            <option value="7">O+</option>
-                            <option value="8">O-</option>
-                        </select>
-
-                        Doador de sangue? <select class="form-control" v-model="paciente.doador">
-                            <option value="sim">Sim</option>
-                            <option value="nao">Não</option>
-                        </select>
-
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Doador de sangue?</span>
+                            <select class="form-control" name="doador" id="doador" v-model="paciente.doador">
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                        </div><br>
                 </div>
                 <h6>(*) campos obrigatórios</h6>
                 <br><br>
@@ -165,6 +168,7 @@
             },
             methods: {
                 submit() {
+                    console.log(this.paciente);
                     let formData = new FormData();
                     formData.append('nome', this.paciente.nome);
                     formData.append('cpf', this.paciente.cpf);
@@ -178,17 +182,18 @@
                     formData.append('tipoSanguineo', this.paciente.tipoSanguineo);
                     formData.append('doador', this.paciente.doador);
                     vm = this;
-                    axios.put(this.url,
+                    axios.put(this.url+'/'+this.paciente.id,
                         formData, {
                             headers: {
-                                'Content-Type': 'multipart/form-data'
+                                'Content-Type': 'multipart/form-data',
+                                
                             }
                         }
                     ).then(function (r) {
                         console.log(r.data);
-                        window.location.replace("login.html?id=" + vm.idUser);
+                        
                     }).catch(function (error) {
-                        console.log(erro);
+                        console.log(error);
                     });
                 },
                 checkForm: function (e) {
@@ -197,7 +202,7 @@
                     if (!this.paciente.nome) {
                         this.errors.push('O nome é obrigatório.');
                     }
-                    if (!this.paciente.cpf) {
+                    if (!this.paciente.cpf && this.paciente.cpf.length !== 11) {
                         this.errors.push('O CPF é obrigatório.');
                     }
                     if (!this.paciente.nascimento) {
@@ -217,8 +222,8 @@
                     }
                     if (!this.errors.length) {
                         this.submit();
-                        alert('Paciente ' + this.paciente.nome + ' foi cadastrado com sucesso!');
-                        window.location.replace("index.html?id=" + vm.idUser);
+                        alert('Paciente ' + this.paciente.nome + ' foi alterado com sucesso!');
+                        window.location.replace("index.html");
                         return true;
                     }
                 }

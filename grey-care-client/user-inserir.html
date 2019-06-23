@@ -137,8 +137,8 @@
                     if (!this.usuario.username) {
                         this.errors.push('O nome de usuário é obrigatório.');
                     }
-                    if (this.usuario.senha && this.usuario.senha.length !== 6) {
-                        this.errors.push('A senha deve ter 6 dígitos.')
+                    if (this.usuario.senha && this.usuario.senha.length < 6) {
+                        this.errors.push('A senha deve ter pelo menos 6 dígitos.')
                     }
                     if (!this.usuario.senha) {
                         this.errors.push('A senha é obrigatória.');
@@ -161,15 +161,15 @@
                     }
 
                     if (this.usuario.tipo === 'secretario') {
-                        if (!this.usuario.cpf) {
-                            this.errors.push('O CPF é obrigatório.');
+                        if (!this.usuario.cpf && this.usuario.cpf.length !== 11) {
+                            this.errors.push('O CPF é obrigatório e deve conter 11 dígitos.');
                         }
                     }
 
                     if (!this.errors.length) {
                         this.submit();
                         alert('Usuário ' + this.usuario.tipo + ' foi cadastrado com sucesso!');
-                        window.location.replace("tela-principal.html?id=" + vm.idUser);
+                        window.location.replace("index.html?id=" + vm.idUser);
                         return true;
                     }
 
@@ -199,7 +199,7 @@
                         }
                     ).then(function(r) {
                         console.log(r.data);
-                        window.location.replace("index.html");
+                        window.location.replace("login.html");
                     }).catch(function(error) {
                         console.log(erro);
                     });

@@ -34,6 +34,10 @@
             <div v-show="mostraTabela && usuario.tipo === 'secretario'" style="color: white">
                 <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&nbsp; Pacientes
                 </p>
+
+                <input class="input-lg" type="text" placeholder="Pesquisar" name="nome" style="width: 23.6"
+                    v-model="busca"> <button type="button" class="btn btn-primary" value="Buscar" v-on:click="buscar()"
+                    id="buscar">Buscar</button>
                 <div class="col-md-9 col-sm-4 table-wrapper-scroll-y my-custom-scrollbar table-responsive">
                     <table class="table" style="margin-left: 5%; width:90%">
                         <thead class="thead-dark">
@@ -42,6 +46,7 @@
                                 <th scope="col">CPF</th>
                                 <th scope="col">Telefone</th>
                                 <th scope="col">E-mail</th>
+                                <th scope="col">CEP</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -53,11 +58,12 @@
                                 <td scope="row">{{paciente.cpf}}</td>
                                 <td scope="row">{{paciente.telefone}}</td>
                                 <td scope="row">{{paciente.email}}</td>
+                                <td scope="row">{{paciente.cep}}</td>
                                 <td scope="row"> <button type="button" class="btn btn-primary" id="myBtn"
                                         v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
                                 </td>
                                 <td scope="row"><button type="button" class="btn btn-warning">
-                                    <i class="fas fa-edit"  v-on:click="editarPaciente(paciente)"></i></button></a>
+                                        <i class="fas fa-edit" v-on:click="editarPaciente(paciente)"></i></button></a>
                                 </td>
                                 <td scope="row"> <button type="button" class="btn btn-danger">
                                         <i class="fas fa-trash-alt" v-on:click="apagarPaciente(paciente)"></i></button>
@@ -81,21 +87,22 @@
                     <div class="modal-body">
                         <table class="table table-borderless">
                             <tbody>
-                                <tr></tr>
-                                <td>Nome: {{paciente.nome}}</td>
-                                <td>CPF: {{paciente.cpf}}</td>
-                                <td colspan="2">Data de Nascimento: {{paciente.dataNascimento}}</td>
+                                <tr>
+                                    <td>Nome: {{paciente.nome}}</td>
+                                    <td>CPF: {{paciente.cpf}}</td>
+                                    <td colspan="1">Data de Nascimento: {{paciente.nascimento}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="1">Telefone: {{paciente.telefone}}</td>
                                     <td colspan="1">Endereço: {{paciente.endereco}}</td>
-                                    <td>CEP: {{paciente.cep}}</td>
+                                    <td>E-mail: {{paciente.email}}</td>
                                 </tr>
                                 <tr>
-                                    <td>E-mail: {{paciente.email}}</td>
                                     <td>Estado Civil: {{paciente.estadoCivil}}</td>
-                                    <td></td>
+                                    <td>Alergias: {{paciente.alergias}}</td>
+                                    <td> Doador de Sangue: {{paciente.doador}}</td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -124,7 +131,8 @@
                 mostraPaciente: false,
                 usuario: {},
                 flagSair: false,
-                flagLogin: true
+                flagLogin: true,
+                busca: ''
             },
             created() {
                 if (!this.$session.exists()) {
@@ -148,6 +156,16 @@
                     }).catch(function (error) {
                         console.log(error);
                     });
+                },
+                buscar: function () {
+                    vm = this;
+                    console.log(this.busca);
+                    axios.get(this.url + "/search/?nome=" + this.busca).then(function (r) {
+                        console.log(r.data);
+                        vm.pacientes = r.data;
+                    }).catch(function (error) {
+                        console.log(error);
+                    })
                 },
                 apagarPaciente: function (paciente) {
                     vm = this;
