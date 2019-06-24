@@ -64,7 +64,7 @@
                                 <td scope="row"> <button type="button" class="btn btn-primary" id="myBtn"
                                         v-on:click="mostrarPaciente(paciente)"><i class=" fas fa-eye"></i></button>
                                 </td>
-                                <td scope="row"><button type="button" class="btn btn-warning">
+                                <td scope="row"><button type="button" class="btn btn-warning" id="myBtnP">
                                         <i class="fas fa-edit" v-on:click="editarPaciente(paciente)"></i></button></a>
                                 </td>
                                 <td scope="row"> <button type="button" class="btn btn-danger">
@@ -158,6 +158,65 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal do editar paciente-->
+            <div id="pacienteModal" class="modal">
+
+                <!-- Conteúdo do Modal -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Editar usuário</h2>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group " style="color:darkgray; margin-left: 7%;">
+                            <span class="input-group-addon" id="basic-addon1">Telefone:</span>
+                            <input type="text" class="form-control" name="telefone" id="telefone"
+                                value={{paciente.telefone}} style="width: 60%" v-model="paciente.telefone">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Estado Civil:</span>
+                            <select class="form-control" name="estadoCivil" id="estadoCivil" style="width: 60%"
+                                v-model="paciente.estadoCivil">
+                                <option value="solteiro">Solteiro(a)</option>
+                                <option value="casado">Casado(a)</option>
+                            </select>
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Email:</span>
+                            <input type="email" class="form-control" name="email" id="email" value={{paciente.email}}
+                                style="width: 60%" v-model="paciente.email">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Nome Completo:</span>
+                            <input type="text" class="form-control" name="nome" id="nome" value={{paciente.nome}}
+                                style="width: 60%" v-model="paciente.nome">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Endereço:</span>
+                            <input type="text" class="form-control" name="endereco" id="endereco"
+                                value={{paciente.endereco}} style="width: 60%" v-model="paciente.endereco">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">CEP*:</span>
+                            <input type="text" class="form-control" name="cep" id="cep" value={{paciente.cep}}
+                                style="width: 60%;" v-model="paciente.cep">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Alergias*:</span>
+                            <textarea class="form-control" name="alergias" id="alergias" value={{paciente.alergias}}
+                                v-model="paciente.alergias">
+                            </textarea>
+                        </div>
+
+                        <br><br>
+                        <div class="btn-group-horizontal text-center">
+                            <button class="btn btn-primary" type="button"
+                                style="width: 150px; height: 50px; font-size: 20px">Salvar Dados</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -240,6 +299,9 @@
                     //Recebe o Modal
                     var modal = document.getElementById("myModal");
 
+                    // Recebe o botão que abre o modal
+                    var btn = document.getElementById("myBtn");
+
                     //Recebe a tag span que fecha o Modal
                     var span = document.getElementsByClassName("close")[0];
 
@@ -261,6 +323,31 @@
                     this.usuario = usuario;
                     //Recebe o Modal
                     var modal = document.getElementById("usuarioModal");
+
+                    //Recebe a tag span que fecha o Modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    modal.style.display = "block";
+
+                    //Fecha o Modal ao clicar no x
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    //Quando clicar em qualquer lugar fora do Modal ele é fechado
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                },
+                editarPaciente: function (paciente) {
+                    this.paciente = paciente;
+                    //Recebe o Modal
+                    var modal = document.getElementById("pacienteModal");
+
+                    // Recebe o botão que abre o modal
+                    var btn = document.getElementById("myBtnP");
 
                     //Recebe a tag span que fecha o Modal
                     var span = document.getElementsByClassName("close")[0];
