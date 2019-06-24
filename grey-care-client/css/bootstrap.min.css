@@ -32,7 +32,7 @@ display: block;
 
 .my-custom-scrollbar {
 position: relative;
-height: 450px;
+height: 350px;
 overflow: auto;
 }
 

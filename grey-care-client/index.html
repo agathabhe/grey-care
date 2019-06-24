@@ -31,16 +31,16 @@
                 <barratitulo v-bind:nomeusuario="usuario.username"></barratitulo>
                 <br>
             </div>
-            <div v-show="mostraTabela && usuario.tipo === 'secretario'" style="color: white">
+            <div v-show="mostraTabela && usuario.tipo === 'secretario'" style="color: white;">
                 <p style="padding-right: 10px; margin-bottom: 15.5px" id="cabecalho">&nbsp; Pacientes
                 </p>
 
-                <input class="input-lg col-md-7" type="text" placeholder="Pesquisar" name="nome"
-                    style="width: 22; color: black; margin-left: 4%;" v-model="busca">
+                <input class="input-sm" type="text" placeholder="Pesquisar" name="nome"
+                    style=" height: 35px; width: 60%; color: black; margin-left: 4%;" v-model="busca">&nbsp;
                 <button type="button" class="btn btn-primary" value="Buscar" v-on:click="buscar()"
                     id="buscar">Buscar</button>
-                <br> <br>
-                <div class="col-md-9 col-sm-4 table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+                <br><br>
+                <div class="col-md-9 col-sm-4 table-wrapper-scroll-y my-custom-scrollbar table-responsive" style="margin-bottom: -20%">
                     <table class="table" style="margin-left: 5%; width:90%">
                         <thead class="thead-dark">
                             <tr>
@@ -181,46 +181,47 @@
                                 <li v-for="error in errors">{{ error }}</li>
                             </ul>
                         </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
-                            <span class="input-group-addon" id="basic-addon1">Nome Completo*:</span>
-                            <input type="text" class="form-control" name="nomePaciente" id="nomePaciente"
-                                value={{paciente.nome}} style="width: 60%" v-model="paciente.nome">
-                        </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
-                            <span class="input-group-addon" id="basic-addon1">Email:</span>
-                            <input type="email" class="form-control" name="emailPaciente" id="emailPaciente"
-                                value={{paciente.email}} style="width: 60%" v-model="paciente.email">
-                        </div>
-                        <div class="input-group " style="color:darkgray; margin-left: 7%; margin-top: 1%">
-                            <span class="input-group-addon" id="basic-addon1">Telefone*:</span>
-                            <input type="text" class="form-control" name="telefonePaciente" id="telefonePaciente"
-                                value={{paciente.telefone}} style="width: 60%" v-model="paciente.telefone">
-                        </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
-                            <span class="input-group-addon" id="basic-addon1">Endereço*:</span>
-                            <input type="text" class="form-control" name="enderecoPaciente" id="enderecoPaciente"
-                                value={{paciente.endereco}} style="width: 60%" v-model="paciente.endereco">
-                        </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
-                            <span class="input-group-addon" id="basic-addon1">CEP*:</span>
-                            <input type="text" class="form-control" name="cepPaciente" id="cepPaciente"
-                                value={{paciente.cep}} style="width: 60%;" v-model="paciente.cep">
-                        </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
-                            <span class="input-group-addon" id="basic-addon1">Estado Civil:</span>
-                            <select class="form-control" name="estadoCivilPaciente" id="estadoCivilPaciente"
-                                style="width: 60%" v-model="paciente.estadoCivil">
-                                <option value="solteiro">Solteiro(a)</option>
-                                <option value="casado">Casado(a)</option>
-                            </select>
-                        </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
-                            <span class="input-group-addon" id="basic-addon1">Alergias*:</span>
-                            <textarea class="form-control" name="alergias" id="alergias" value={{paciente.alergias}}
-                                v-model="paciente.alergias">
+                        <form>
+                            <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                                <span class="input-group-addon" id="basic-addon1">Nome Completo*:</span>
+                                <input type="text" class="form-control" name="nomePaciente" id="nomePaciente"
+                                    value={{paciente.nome}} style="width: 60%" v-model="paciente.nome">
+                            </div>
+                            <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                                <span class="input-group-addon" id="basic-addon1">Email:</span>
+                                <input type="email" class="form-control" name="emailPaciente" id="emailPaciente"
+                                    value={{paciente.email}} style="width: 60%" v-model="paciente.email">
+                            </div>
+                            <div class="input-group " style="color:darkgray; margin-left: 7%; margin-top: 1%">
+                                <span class="input-group-addon" id="basic-addon1">Telefone*:</span>
+                                <input type="text" class="form-control" name="telefonePaciente" id="telefonePaciente"
+                                    value={{paciente.telefone}} style="width: 60%" v-model="paciente.telefone">
+                            </div>
+                            <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                                <span class="input-group-addon" id="basic-addon1">Endereço*:</span>
+                                <input type="text" class="form-control" name="enderecoPaciente" id="enderecoPaciente"
+                                    value={{paciente.endereco}} style="width: 60%" v-model="paciente.endereco">
+                            </div>
+                            <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                                <span class="input-group-addon" id="basic-addon1">CEP*:</span>
+                                <input type="text" class="form-control" name="cepPaciente" id="cepPaciente"
+                                    value={{paciente.cep}} style="width: 60%;" v-model="paciente.cep">
+                            </div>
+                            <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                                <span class="input-group-addon" id="basic-addon1">Estado Civil:</span>
+                                <select class="form-control" name="estadoCivilPaciente" id="estadoCivilPaciente"
+                                    style="width: 60%" v-model="paciente.estadoCivil">
+                                    <option value="solteiro">Solteiro(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                                <span class="input-group-addon" id="basic-addon1">Alergias*:</span>
+                                <textarea class="form-control" name="alergias" id="alergias" value={{paciente.alergias}}
+                                    v-model="paciente.alergias">
                             </textarea>
-                        </div>
-
+                            </div>
+                        </form>
                         <br><br>
                         <div class="btn-group-horizontal text-center">
                             <button class="btn btn-primary" type="button" @click="checkFormPacientes"
@@ -326,6 +327,7 @@
                     window.onclick = function (event) {
                         if (event.target == modal) {
                             modal.style.display = "none";
+                            this.errors = [];
                         }
                     }
                 },
@@ -369,27 +371,32 @@
                         modal.style.display = "none";
                     }
 
+                    vm = this;
                     //Quando clicar em qualquer lugar fora do Modal ele é fechado
                     window.onclick = function (event) {
                         if (event.target == modal) {
                             modal.style.display = "none";
+                            
+                            vm.errors = [];
+                            vm.paciente = {};
+                            vm.getPacientes();
                         }
                     }
                 },
                 salvarPaciente() {
                     console.log(this.paciente);
                     let formData = new FormData();
-                    formData.append('nome', this.paciente.nomePaciente);
-                    formData.append('cpf', this.paciente.cpfPaciente);
-                    formData.append('nascimento', this.paciente.nascimentoPaciente);
-                    formData.append('telefone', this.paciente.telefonePaciente);
-                    formData.append('estadoCivil', this.paciente.estadoCivilPaciente);
-                    formData.append('endereco', this.paciente.enderecoPaciente);
-                    formData.append('cep', this.paciente.cepPaciente);
-                    formData.append('email', this.paciente.emailPaciente);
-                    formData.append('alergias', this.paciente.alergiasPaciente);
-                    formData.append('tipoSanguineo', this.paciente.tipoSanguineoPaciente);
-                    formData.append('doador', this.paciente.doadorPaciente);
+                    formData.append('nome', this.paciente.nome);
+                    formData.append('cpf', this.paciente.cpf);
+                    formData.append('nascimento', this.paciente.nascimento);
+                    formData.append('telefone', this.paciente.telefone);
+                    formData.append('estadoCivil', this.paciente.estadoCivil);
+                    formData.append('endereco', this.paciente.endereco);
+                    formData.append('cep', this.paciente.cep);
+                    formData.append('email', this.paciente.email);
+                    formData.append('alergias', this.paciente.alergias);
+                    formData.append('tipoSanguineo', this.paciente.tipoSanguineo);
+                    formData.append('doador', this.paciente.doador);
                     vm = this;
                     axios.put(this.url + '/' + this.paciente.id,
                         formData, {
@@ -401,7 +408,10 @@
                     ).then(function (r) {
                         alert('Paciente salvo com sucesso!')
                         console.log(r.data);
-
+                        vm.getPacientes();
+                        vm.paciente = {};
+                        var modal = document.getElementById("pacienteModal");
+                        modal.style.display = "none";
                     }).catch(function (error) {
                         console.log(error);
                     });
@@ -411,6 +421,9 @@
 
                     if (!this.paciente.nome) {
                         this.errors.push('O nome é obrigatório.');
+                    }
+                    if (this.paciente.email && !this.validEmail(this.paciente.email)) {
+                        this.errors.push('Utilize um e-mail válido.');
                     }
                     if (!this.paciente.cpf && this.paciente.cpf.length !== 11) {
                         this.errors.push('O CPF é obrigatório.');
@@ -430,7 +443,7 @@
                     if (!this.paciente.doador) {
                         this.errors.push('Não é doador? Se não, nos diga mesmo assim.');
                     }
-                    if (!this.errors.length) {
+                    if (this.errors.length < 1) {
                         this.salvarPaciente();
 
                         return true;
