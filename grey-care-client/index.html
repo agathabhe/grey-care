@@ -236,7 +236,7 @@
                 paciente: {},
                 pacientes: [],
                 flag: false,
-                mostraTabela: false,
+                mostraTabela: true,
                 mostraPaciente: false,
                 usuario: {},
                 flagSair: false,
@@ -291,7 +291,7 @@
                 mostrarPacientes: function () {
                     this.mostraTabela = true;
                 },
-                mostrarPaginaInicial: function () {
+                esconderPacientes: function () {
                     this.mostraTabela = false;
                 },
                 mostrarPaciente: function (paciente) {
