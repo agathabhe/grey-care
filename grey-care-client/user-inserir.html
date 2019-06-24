@@ -26,7 +26,8 @@
                 </span>
             </div>
         </div>
-        <div class="container-fluid" style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
+        <div class="container-fluid"
+            style="border-style: solid; border-color: #44a5ae; border-width: 3px; margin-top: 70px" id="ver">
             <p style="font-size: 25px">Dados cadastrais</p>
             <div class="alert alert-danger " role="alert" v-if="errors.length">
                 <ul>
@@ -36,55 +37,66 @@
             <form @submit="checkForm" method="post">
                 <div class="radio">
                     Tipo de conta*: &nbsp;
-                    <label><input type="radio" name="option" v-model="usuario.tipo" value="medico">Médico(a)</label> &nbsp&nbsp&nbsp
+                    <label><input type="radio" name="option" v-model="usuario.tipo" value="medico">Médico(a)</label>
+                    &nbsp&nbsp&nbsp
                     <label><input type="radio" name="option" v-model="usuario.tipo"
                             value="secretario">Secretário(a)</label>
                     <br><br>
                     <div v-show="usuario.tipo !== ''">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Nome de usuário*:</span>
-                            <input type="text" placeholder="Digite seu nome de usuário" class="form-control" name="username" id="username" v-model="usuario.username">
+                            <input type="text" placeholder="Digite seu nome de usuário" class="form-control"
+                                name="username" id="username" v-model="usuario.username">
                         </div><br>
                         <div v-show="usuario.tipo === 'secretario'">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">CPF*:</span>
-                                <input type="text" placeholder="Use apenas números" class="form-control" name="cpf" id="cpf" v-model="usuario.cpf">
+                                <input type="text" placeholder="Use apenas números" class="form-control" name="cpf"
+                                    id="cpf" v-model="usuario.cpf">
                             </div><br>
                         </div>
                         <div v-show="usuario.tipo === 'medico'" id="medico">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">CRM*:</span>
-                                <input type="text" placeholder="Digite seu CRM" class="form-control" name="crm" id="crm" v-model="usuario.crm">
+                                <input type="text" placeholder="Digite seu CRM" class="form-control" name="crm" id="crm"
+                                    v-model="usuario.crm">
                             </div><br>
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Especialidade*:</span>
-                                <input type="text" placeholder="Digite sua especialidade" class="form-control" name="especialidade"id="esp" v-model="usuario.especialidade">
+                                <input type="text" placeholder="Digite sua especialidade" class="form-control"
+                                    name="especialidade" id="esp" v-model="usuario.especialidade">
                             </div><br>
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Senha*:</span>
-                            <input type="password" placeholder="Sua senha deve conter 6 caracteres" class="form-control" name="senha" id="senha" v-model="usuario.senha"> 
+                            <input type="password" placeholder="Sua senha deve conter 6 caracteres" class="form-control"
+                                name="senha" id="senha" v-model="usuario.senha">
                         </div><br>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Confirmar senha*:</span>
-                            <input type="password" class="form-control" placeholder="Digite sua senha novamente" name="confsenha" id="confsenha" v-model="usuario.confSenha"> 
+                            <input type="password" class="form-control" placeholder="Digite sua senha novamente"
+                                name="confsenha" id="confsenha" v-model="usuario.confSenha">
                         </div><br>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Email*:</span>
-                            <input type="email" class="form-control" placeholder="Digite seu email" name="email"id="email" v-model="usuario.email">
+                            <input type="email" class="form-control" placeholder="Digite seu email" name="email"
+                                id="email" v-model="usuario.email">
                         </div><br>
                         <p style="font-size: 25px">Dados pessoais</p>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Nome completo*:</span>
-                            <input type="text" class="form-control" placeholder="Digite seu nome completo" ame="nome" id="nome" v-model="usuario.nome"> 
+                            <input type="text" class="form-control" placeholder="Digite seu nome completo" ame="nome"
+                                id="nome" v-model="usuario.nome">
                         </div><br>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Telefone*:</span>
-                            <input type="text" class="form-control" placeholder="Use apenas números" name="telefone" id="telefone" v-model="usuario.telefone">
+                            <input type="text" class="form-control" placeholder="Use apenas números" name="telefone"
+                                id="telefone" v-model="usuario.telefone">
                         </div><br>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Data de nascimento:</span>
-                            <input type="date" class="form-control" name="nascimento" id="nascimento" v-model="usuario.nascimento">
+                            <input type="date" class="form-control" name="nascimento" id="nascimento"
+                                v-model="usuario.nascimento">
                         </div><br>
                         <br>
                     </div>
@@ -123,7 +135,7 @@
                 }
             },
             methods: {
-                checkForm: function(e) {
+                checkForm: function (e) {
                     this.errors = [];
 
                     if (!this.usuario.nome) {
@@ -161,25 +173,25 @@
                     }
 
                     if (this.usuario.tipo === 'secretario') {
-                        if (!this.usuario.cpf && this.usuario.cpf.length !== 11) {
+                        if (!this.usuario.cpf || this.usuario.cpf.length !== 11) {
                             this.errors.push('O CPF é obrigatório e deve conter 11 dígitos.');
                         }
                     }
 
                     if (!this.errors.length) {
                         this.submit();
-                        alert('Usuário ' + this.usuario.tipo + ' foi cadastrado com sucesso!');
-                        window.location.replace("index.html?id=" + vm.idUser);
                         return true;
                     }
 
                     //e.preventDefault();
                 },
-                validEmail: function(email) {
+                validEmail: function (email) {
                     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     return re.test(email);
                 },
                 submit() {
+                    this.errors = [];
+                    vm = this;
                     let formData = new FormData();
                     formData.append('tipo', this.usuario.tipo);
                     formData.append('username', this.usuario.username);
@@ -197,11 +209,20 @@
                                 'Content-Type': 'multipart/form-data'
                             }
                         }
-                    ).then(function(r) {
+                    ).then(function (r) {
                         console.log(r.data);
-                        window.location.replace("login.html");
-                    }).catch(function(error) {
-                        console.log(erro);
+                        if (r.status === 409) {
+                            vm.errors.push('Já existe um usuário com este username.')
+                        } else {
+                            alert('Usuário ' + vm.usuario.tipo + ' foi cadastrado com sucesso!');
+                            window.location.replace("login.html");
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                        if (error.response.status === 409) {
+                            vm.errors.push('Já existe um usuário com este username.')
+                        }
+                        
                     });
                 }
             }

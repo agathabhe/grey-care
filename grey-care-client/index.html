@@ -26,7 +26,7 @@
     <div class="container-fluid" id="app">
 
         <div v-if="flag" class="row no-gutter content">
-            <menusidebar></menusidebar>
+            <menusidebar v-bind:page="this"></menusidebar>
             <div>
                 <barratitulo v-bind:nomeusuario="usuario.username"></barratitulo>
                 <br>
@@ -140,7 +140,7 @@
                             <input type="text" class="form-control" name="nome" id="nome" value={{usuario.nome}}
                                 style="width: 60%" v-model="usuario.nome">
                         </div>
-                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;" v-if="usuario.tipo === 'medico'">
                             <span class="input-group-addon" id="basic-addon1">Especialidade:</span>
                             <input type="text" class="form-control" name="especialidade" id="especialidade"
                                 value={{usuario.especialidade}} style="width: 60%" v-model="usuario.especialidade">
@@ -165,7 +165,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <span class="close">&times;</span>
-                        <h2>Editar usuário</h2>
+                        <h2>Editar Paciente</h2>
                     </div>
                     <div class="modal-body">
 
@@ -245,7 +245,7 @@
             },
             created() {
                 if (!this.$session.exists()) {
-                    location.href = "index.html";
+                    location.href = "login.html";
                 } else {
                     this.usuario = JSON.parse(this.$session.get('user'));
                     this.flag = true;
@@ -292,7 +292,7 @@
                     this.mostraTabela = true;
                 },
                 mostrarPaginaInicial: function () {
-                    this.mostraTabela = false;
+                    this.mostraTabela = true;
                 },
                 mostrarPaciente: function (paciente) {
                     this.paciente = paciente;
