@@ -36,9 +36,10 @@
                 </p>
 
                 <input class="input-lg col-md-7" type="text" placeholder="Pesquisar" name="nome"
-                    style="width: 22; color: black; margin-left: 4%;" v-model="busca"> 
-                    <button type="button" class="btn btn-primary" value="Buscar" v-on:click="buscar()" id="buscar">Buscar</button>
-                    <br> <br>
+                    style="width: 22; color: black; margin-left: 4%;" v-model="busca">
+                <button type="button" class="btn btn-primary" value="Buscar" v-on:click="buscar()"
+                    id="buscar">Buscar</button>
+                <br> <br>
                 <div class="col-md-9 col-sm-4 table-wrapper-scroll-y my-custom-scrollbar table-responsive">
                     <table class="table" style="margin-left: 5%; width:90%">
                         <thead class="thead-dark">
@@ -76,7 +77,7 @@
                 </div>
 
             </div>
-            <!-- Definir o Modal -->
+            <!-- Modal do Ver Paciente -->
             <div id="myModal" class="modal">
 
                 <!-- Conteúdo do Modal -->
@@ -109,6 +110,54 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal do alterar meus dados -->
+            <div id="usuarioModal" class="modal">
+
+                <!-- Conteúdo do Modal -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Editar usuário</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group" style="color:darkgray; margin-left: 7%;">
+                            <span class="input-group-addon" id="basic-addon1">Senha/Nova Senha:</span>
+                            <input type="password" class="form-control" name="senha" id="senha" style="width: 60%"
+                                v-model="usuario.senha">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Confirmar Senha/Nova Senha:</span>
+                            <input type="password" class="form-control" name="confsenha" id="confsenha"
+                                style="width: 60%" v-model="usuario.confsenha">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Email:</span>
+                            <input type="email" class="form-control" name="email" id="email" value={{usuario.email}}
+                                style="width: 60%" v-model="usuario.email">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Nome Completo:</span>
+                            <input type="text" class="form-control" name="nome" id="nome" value={{usuario.nome}}
+                                style="width: 60%" v-model="usuario.nome">
+                        </div>
+                        <div class="input-group" style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Especialidade:</span>
+                            <input type="text" class="form-control" name="especialidade" id="especialidade"
+                                value={{usuario.especialidade}} style="width: 60%" v-model="usuario.especialidade">
+                        </div>
+                        <div class="input-group " style="color:darkgray; margin-left: 7%; margin-top: 1%;">
+                            <span class="input-group-addon" id="basic-addon1">Telefone:</span>
+                            <input type="text" class="form-control" name="telefone" id="telefone"
+                                value={{usuario.telefone}} style="width: 60%" v-model="usuario.telefone">
+                        </div>
+                        <br><br>
+                        <div class="btn-group-horizontal text-center">
+                            <button class="btn btn-primary" type="button"
+                                style="width: 150px; height: 50px; font-size: 20px">Salvar Dados</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -128,7 +177,7 @@
                 paciente: {},
                 pacientes: [],
                 flag: false,
-                mostraTabela: true,
+                mostraTabela: false,
                 mostraPaciente: false,
                 usuario: {},
                 flagSair: false,
@@ -183,13 +232,35 @@
                 mostrarPacientes: function () {
                     this.mostraTabela = true;
                 },
-                escondePacientes: function () {
+                mostrarPaginaInicial: function () {
                     this.mostraTabela = false;
                 },
                 mostrarPaciente: function (paciente) {
                     this.paciente = paciente;
                     //Recebe o Modal
                     var modal = document.getElementById("myModal");
+
+                    //Recebe a tag span que fecha o Modal
+                    var span = document.getElementsByClassName("close")[0];
+
+                    modal.style.display = "block";
+
+                    //Fecha o Modal ao clicar no x
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    //Quando clicar em qualquer lugar fora do Modal ele é fechado
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                },
+                mostrarUsuario: function (usuario) {
+                    this.usuario = usuario;
+                    //Recebe o Modal
+                    var modal = document.getElementById("usuarioModal");
 
                     //Recebe a tag span que fecha o Modal
                     var span = document.getElementsByClassName("close")[0];
