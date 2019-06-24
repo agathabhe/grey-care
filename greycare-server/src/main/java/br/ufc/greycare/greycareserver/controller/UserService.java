@@ -61,6 +61,10 @@ public class UserService {
 				|| especialidade == null || email == null || nascimento == null || cpf == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else {
+			User user = users.findByUsername(username);
+			if(user != null){
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
 			return new ResponseEntity<User>(users.save(new User(tipo, username, senha, nome, crm, telefone, especialidade, email, nascimento, cpf)), HttpStatus.OK);
 		}
 	}
@@ -73,21 +77,23 @@ public class UserService {
 				|| especialidade == null || email == null || nascimento == null || cpf == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		Optional<User> user = users.findById(id);
+		Optional<User> userBanco = users.findById(id);
 
-		if (user.isPresent()) {
-			user.get().setTipo(tipo);
-			user.get().setUsername(username);
-			user.get().setSenha(senha);
-			user.get().setNome(nome);
-			user.get().setCrm(crm);
-			user.get().setTelefone(telefone);
-			user.get().setEspecialidade(especialidade);
-			user.get().setEmail(email);
-			user.get().setNascimento(nascimento);
-			user.get().setCpf(cpf);
+		if (userBanco.isPresent()) {
+			User user = new User();
+			user.setId(id);
+			user.setTipo(tipo);
+			user.setUsername(username);
+			user.setSenha(senha);
+			user.setNome(nome);
+			user.setCrm(crm);
+			user.setTelefone(telefone);
+			user.setEspecialidade(especialidade);
+			user.setEmail(email);
+			user.setNascimento(nascimento);
+			user.setCpf(cpf);
 			
-			return new ResponseEntity<User>(user.get(), HttpStatus.OK);
+			return new ResponseEntity<User>(users.save(user), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
